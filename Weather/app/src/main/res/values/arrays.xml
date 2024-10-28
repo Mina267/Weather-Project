@@ -1,0 +1,33 @@
+<!-- res/values/arrays.xml -->
+<resources>
+    <!-- Location source options -->
+    <string-array name="location_options">
+        <item>GPS</item>
+        <item>Map Selection</item>
+    </string-array>
+
+    <!-- Temperature units options -->
+    <string-array name="temperature_units">
+        <item>Kelvin</item>
+        <item>Celsius</item>
+        <item>Fahrenheit</item>
+    </string-array>
+
+    <!-- Wind speed units options -->
+    <string-array name="wind_speed_units">
+        <item>Meter/sec</item>
+        <item>Miles/hour</item>
+    </string-array>
+
+    <!-- Language options -->
+    <string-array name="language_options">
+        <item>English</item>
+        <item>Arabic</item>
+    </string-array>
+
+    <string-array name="temp_units">
+        <item>Kelvin</item>
+        <item>Celsius</item>
+        <item>Fahrenheit</item>
+    </string-array>
+</resources>

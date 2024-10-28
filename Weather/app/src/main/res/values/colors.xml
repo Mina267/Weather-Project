@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Main application theme -->
+    <color name="primaryAppColor">#527CCA</color>
+    <!-- Menu navigation item text color -->
+    <color name="menuTextColor">#FFFFFF</color>
+    <color name="menuIconColor">#FFFFFF</color>
+    <color name="menuTextSelectedColor">#66FFFFFF</color>
+    <color name="navBackgroundColor">#80FFFFFF</color>
+    <color name="white_scrim">#80FFFFFF</color>
+    <color name="white_overlay">#CCFFFFFF</color> <!-- 80% opaque white -->
+
+    <color name="accent_color">#FFFFFF</color>
+    <color name="snackbar_background">#0B5C70</color>
+    <color name="blue_grey_50">#ECEFF1</color>
+
+
+    <color name="accentColor">#FFD700</color>
+    <color name="secondaryColor">#708090</color>
+    <color name="rainyColor">#607D8B</color>
+    <color name="stormyColor">#484848</color>
+    <color name="snowyColor">#FFFFFF</color>
+    <color name="heatWaveColor">#FF4500</color>
+    <color name="textPrimaryColor">#FFFFFF</color>
+    <color name="textSecondaryColor">#333333</color>
+    <color name="alertColor">#DC143C</color>
+
+
+    <color name="brightBlue1">#7aaef5</color>
+    <color name="brightBlue2">#8ac5ff</color>
+    <color name="lightSkyBlue">#87cefa</color>
+    <color name="freshBlue">#76b4ff</color>
+    <color name="pastelBlue">#94d3ff</color>
+
+    <color name="textColor">#FFFFFF</color>
+    <color name="backgroundColor">#F5F5F5</color>
+
+
+</resources>

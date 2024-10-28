@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="weather_icon">Weather Icon</string>
+    <string name="feels_like">Feels like</string>
+    <string name="uv_index">UV Index</string>
+    <string name="humidity">Humidity</string>
+    <string name="wind">Wind</string>
+    <string name="pressure">Pressure</string>
+    <string name="dew_point">Dew Point</string>
+    <string name="visibility">Visibility</string>
+    <string name="unit_kmh">km/h</string>
+    <string name="unit_mb">mb</string>
+    <string name="Low">Low</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_fav">Favourite</string>
+    <string name="menu_setting">Setting</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+
+    <string name="settings_header">Weather Settings</string>
+    <string name="location_preference">Location Preference</string>
+    <string name="gps">GPS</string>
+    <string name="language">Language</string>
+    <string name="temperature_unit">Temperature Unit</string>
+    <string name="wind_speed_unit">Wind Speed Unit</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="mycurrentlocation"> My Current Location</string>
+    <string name="managelocations">Manage Locations</string>
+</resources>

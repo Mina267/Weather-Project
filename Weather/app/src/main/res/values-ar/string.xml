@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">الطقس</string>
+    <string name="navigation_drawer_open">فتح درج التنقل</string>
+    <string name="navigation_drawer_close">إغلاق درج التنقل</string>
+    <string name="nav_header_title">أندرويد ستوديو</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">رأس التنقل</string>
+    <string name="action_settings">الإعدادات</string>
+    <string name="weather_icon">أيقونة الطقس</string>
+    <string name="feels_like">يشعر وكأنه</string>
+    <string name="uv_index">مؤشر الأشعة فوق البنفسجية</string>
+    <string name="humidity">الرطوبة</string>
+    <string name="wind">الرياح</string>
+    <string name="pressure">الضغط</string>
+    <string name="dew_point">نقطة الندى</string>
+    <string name="visibility">الرؤية</string>
+    <string name="unit_kmh">كم/س</string>
+    <string name="unit_mb">ملليبار</string>
+    <string name="menu_home">الرئيسية</string>
+    <string name="menu_fav">المفضلة</string>
+    <string name="menu_setting">الإعدادات</string>
+    <string name="sunrise">شروق الشمس</string>
+    <string name="sunset">غروب الشمس</string>
+    <string name="Low">الصغرى</string>
+    <string name="mycurrentlocation">موقعي الحالي</string>
+    <string name="managelocations">إدارة المواقع</string>
+    <string name="settings_header">إعدادات الطقس</string>
+    <string name="location_preference">تفضيلات الموقع</string>
+    <string name="gps">نظام تحديد المواقع</string>
+    <string name="language">اللغة</string>
+    <string name="temperature_unit">وحدة درجة الحرارة</string>
+    <string name="wind_speed_unit">وحدة سرعة الرياح</string>
+</resources>
