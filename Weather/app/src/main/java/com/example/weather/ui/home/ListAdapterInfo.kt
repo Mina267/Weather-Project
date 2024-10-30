@@ -27,7 +27,7 @@ class MyDiffUtilInfo : DiffUtil.ItemCallback<WeatherInfo>() {
 sealed class WeatherInfo {
     data class UVIndex(val value: Double) : WeatherInfo()
     data class Humidity(val value: Int) : WeatherInfo()
-    data class Wind(val speed: Double, val deg: Int) : WeatherInfo()
+    data class Wind(var speed: Double, val unit: String) : WeatherInfo()
     data class Pressure(val value: Int) : WeatherInfo()
     data class DewPoint(val value: Double) : WeatherInfo()
     data class Visibility(val value: Int) : WeatherInfo()
@@ -61,7 +61,14 @@ class ListAdapterInfo(private val myListener: (WeatherInfo) -> Unit) :
             }
             is WeatherInfo.Wind -> {
                 holder.binding.txtType.text = context.getString(R.string.wind)
-                holder.binding.txtData.text = "${NumberFormat.getInstance(Locale.getDefault()).format(item.speed)} ${context.getString(R.string.unit_kmh)}"
+                item.speed = roundToDecimal(item.speed, 1)
+
+                if (item.unit == "imperial") {
+                    holder.binding.txtData.text = "${NumberFormat.getInstance(Locale.getDefault()).format(item.speed)} ${context.getString(R.string.unit_mph)}"
+                }else if (item.unit == "metric") {
+                    holder.binding.txtData.text = "${NumberFormat.getInstance(Locale.getDefault()).format(item.speed)} ${context.getString(R.string.unit_ms)}"
+                }
+
                 holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(R.drawable.air_24px, 0, 0, 0)
             }
             is WeatherInfo.Pressure -> {
@@ -71,7 +78,7 @@ class ListAdapterInfo(private val myListener: (WeatherInfo) -> Unit) :
             }
             is WeatherInfo.DewPoint -> {
                 holder.binding.txtType.text = context.getString(R.string.dew_point)
-                holder.binding.txtData.text = "${NumberFormat.getInstance(Locale.getDefault()).format(item.value)}°"
+                holder.binding.txtData.text = "${NumberFormat.getInstance(Locale.getDefault()).format(item.value.toInt())}°"
                 holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(R.drawable.dew_point_24px, 0, 0, 0)
             }
             is WeatherInfo.Visibility -> {
@@ -85,7 +92,10 @@ class ListAdapterInfo(private val myListener: (WeatherInfo) -> Unit) :
             myListener(item)
         }
     }
-
+    private fun roundToDecimal(value: Double, places: Int): Double {
+        val normalizedValue = String.format(Locale.ENGLISH, "%.${places}f", value)
+        return normalizedValue.toDouble()
+    }
 
     class ViewHolder(val binding: CardInfoBinding) : RecyclerView.ViewHolder(binding.root)
 }

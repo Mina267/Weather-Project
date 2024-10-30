@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import androidx.lifecycle.lifecycleScope
+import com.example.weather.network.NetworkConnectionStatusImpl
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -54,7 +55,9 @@ class HomeFragment : Fragment() {
         val repository = WeatherRepositoryImpl(
             WeatherRemoteDataSourceImpl(RetrofitHelper.getInstance().create(ApiService::class.java)),
             WeatherLocalDataSourceImpl(WeatherDataBase.getInstance(requireContext()).weatherDao()),
-            SharedPreferenceDataSourceImpl.getInstance(requireContext())
+            SharedPreferenceDataSourceImpl.getInstance(requireContext()),
+            NetworkConnectionStatusImpl.getInstance(requireContext())
+
         )
         val weatherViewModelFactory = WeatherViewModelFactory(repository)
         weatherViewModel = ViewModelProvider(this, weatherViewModelFactory).get(WeatherViewModel::class.java)
@@ -112,6 +115,7 @@ class HomeFragment : Fragment() {
                     locationHandler.getSingleAccurateLocation { lat, lon ->
                         weatherViewModel.refreshWeather(lat, lon)
                         weatherViewModel.setActiveNetworkLocation(lat, lon)
+                        Log.i("WeatherCheck", "onStart: lat" + lat)
                     }
                 }
                 else
@@ -167,7 +171,7 @@ class HomeFragment : Fragment() {
             hourlyAdapter.submitList(weather.hourly.drop(1).take(24))
             dailyAdapter.submitList(weather.daily.drop(1))
 
-            val weatherInfoList = weatherViewModel.mapCurrentToWeatherInfo(weather.current)
+            val weatherInfoList = weatherViewModel.mapCurrentToWeatherInfo(weather.current, weather.wind)
             listAdapterInfo.submitList(weatherInfoList)
             val sunriseInMillis = currentWeather.sunrise.toLong() * 1000
             val sunsetInMillis = currentWeather.sunset.toLong() * 1000

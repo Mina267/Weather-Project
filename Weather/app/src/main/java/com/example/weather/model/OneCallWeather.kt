@@ -64,7 +64,7 @@ data class Current (
     @SerializedName("uvi"        ) var uvi        : Double,
     @SerializedName("clouds"     ) var clouds     : Int,
     @SerializedName("visibility" ) var visibility : Int,
-    @SerializedName("wind_speed" ) var windSpeed  : Double,
+    @SerializedName("wind_speed" ) var windSpeed  : Double,  /**/
     @SerializedName("wind_deg"   ) var windDeg    : Int,
     @SerializedName("wind_gust"  ) var windGust   : Double,
     @SerializedName("weather"    ) var weather    : List<Weather>

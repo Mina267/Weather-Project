@@ -18,6 +18,10 @@ class SharedPreferenceDataSourceImpl private constructor(context: Context) :
         private const val KEY_TEMP_UNIT = "temp_unit"
         private const val KEY_WIND_SPEED_UNIT = "wind_speed_unit"
         private const val KEY_LANGUAGE = "language"
+        private const val KEY_LONGITUDE = "longitude"
+        private const val KEY_LATITUDE = "latitude"
+        private const val KEY_LONGITUDE_GPS = "longitudeGPS"
+        private const val KEY_LATITUDE_GPS = "latitudeGPS"
 
         @Volatile
         private var instance: SharedPreferenceDataSourceImpl? = null
@@ -62,25 +66,24 @@ class SharedPreferenceDataSourceImpl private constructor(context: Context) :
     }
 
     override fun setActiveLocation(longitude: Double, latitude: Double) {
-        editor.putFloat("longitude", longitude.toFloat()).apply()
-        editor.putFloat("latitude", latitude.toFloat()).apply()
+        editor.putString(KEY_LONGITUDE, longitude.toString()).apply()
+        editor.putString(KEY_LATITUDE, latitude.toString()).apply()
     }
 
     override fun getActiveLocation(): Pair<Double, Double> {
-        val longitude = sharedPreferences.getFloat("longitude", 30.0444f).toDouble()
-        val latitude = sharedPreferences.getFloat("latitude", 31.2357f).toDouble()
+        val longitude = sharedPreferences.getString(KEY_LONGITUDE, "30.0444")?.toDouble() ?: 30.0444
+        val latitude = sharedPreferences.getString(KEY_LATITUDE, "31.2357")?.toDouble() ?: 31.2357
         return Pair(longitude, latitude)
     }
 
-
     override fun setActiveNetworkLocation(longitude: Double, latitude: Double) {
-        editor.putFloat("longitudeGPS", longitude.toFloat()).apply()
-        editor.putFloat("latitudeGPS", latitude.toFloat()).apply()
+        editor.putString(KEY_LONGITUDE_GPS, longitude.toString()).apply()
+        editor.putString(KEY_LATITUDE_GPS, latitude.toString()).apply()
     }
 
     override fun getActiveNetworkLocation(): Pair<Double, Double> {
-        val longitude = sharedPreferences.getFloat("longitudeGPS", 30.0444f).toDouble()
-        val latitude = sharedPreferences.getFloat("latitudeGPS", 31.2357f).toDouble()
+        val longitude = sharedPreferences.getString(KEY_LONGITUDE_GPS, "30.0444")?.toDouble() ?: 30.0444
+        val latitude = sharedPreferences.getString(KEY_LATITUDE_GPS, "31.2357")?.toDouble() ?: 31.2357
         return Pair(longitude, latitude)
     }
 

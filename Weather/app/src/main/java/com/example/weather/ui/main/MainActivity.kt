@@ -25,6 +25,7 @@ import com.example.weather.db.WeatherDataBase
 import com.example.weather.db.WeatherLocalDataSourceImpl
 import com.example.weather.model.WeatherRepositoryImpl
 import com.example.weather.network.ApiService
+import com.example.weather.network.NetworkConnectionStatusImpl
 import com.example.weather.network.RetrofitHelper
 import com.example.weather.network.WeatherRemoteDataSourceImpl
 import com.example.weather.ui.favourite.FavouriteViewModel
@@ -41,7 +42,8 @@ class MainActivity : AppCompatActivity() {
             WeatherRepositoryImpl(
                 WeatherRemoteDataSourceImpl(RetrofitHelper.getInstance().create(ApiService::class.java)),
                 WeatherLocalDataSourceImpl(WeatherDataBase.getInstance(this).weatherDao()),
-                SharedPreferenceDataSourceImpl.getInstance(this)
+                SharedPreferenceDataSourceImpl.getInstance(this),
+                NetworkConnectionStatusImpl.getInstance(this)
             )
         )
     }
@@ -127,18 +129,27 @@ class MainActivity : AppCompatActivity() {
             adapter = ListAdapterMain(
                 myListener = { favourite ->
                     mainViewModel.setLocation(favourite.lat, favourite.lon)
-                    findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.nav_home)
+
+                    val navController = findNavController(R.id.nav_host_fragment_content_main)
+                    navController.navigate(R.id.nav_home, null,
+                        androidx.navigation.NavOptions.Builder()
+                            .setPopUpTo(R.id.nav_home, inclusive = true)
+                            .setLaunchSingleTop(true)
+                            .build()
+                    )
+
                     mainViewModel.setLocationSource(false)
                     // Introduce a slight delay before closing the drawer
                     navRecyclerView.postDelayed({
                         binding.drawerLayout.closeDrawer(GravityCompat.START)
-                    }, 100)  // Adjust delay if needed
+                    }, 200)  // Adjust delay if needed
                 },
                 removeListener = { favourite ->
                     mainViewModel.deleteFavourite(favourite.lat, favourite.lon)
                 }
             )
         }
+
 
         txtMyCurrentLocation.setOnClickListener {
             mainViewModel.setLocationSource(true)

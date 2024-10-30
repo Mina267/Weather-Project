@@ -14,6 +14,9 @@
     <string name="pressure">الضغط</string>
     <string name="dew_point">نقطة الندى</string>
     <string name="visibility">الرؤية</string>
+    <string name="unit_ms">م/س</string>
+    <string name="unit_mph">ميل/الساعة</string>
+
     <string name="unit_kmh">كم/س</string>
     <string name="unit_mb">ملليبار</string>
     <string name="menu_home">الرئيسية</string>

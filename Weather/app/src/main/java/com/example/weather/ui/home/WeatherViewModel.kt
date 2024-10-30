@@ -87,14 +87,15 @@ class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() 
 
 
 
-    fun mapCurrentToWeatherInfo(current: Current): List<WeatherInfo> {
+    fun mapCurrentToWeatherInfo(current: Current, unit: String): List<WeatherInfo> {
         return listOf(
             WeatherInfo.UVIndex(current.uvi),
             WeatherInfo.Humidity(current.humidity),
-            WeatherInfo.Wind(current.windSpeed, current.windDeg),
+            WeatherInfo.Wind(current.windSpeed, unit),
             WeatherInfo.Pressure(current.pressure),
             WeatherInfo.DewPoint(current.dewPoint),
-            WeatherInfo.Visibility(current.visibility)
+            WeatherInfo.Visibility(current.visibility),
+
         )
     }
 }

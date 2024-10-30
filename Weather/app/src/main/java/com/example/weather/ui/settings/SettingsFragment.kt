@@ -17,6 +17,7 @@ import com.example.weather.db.WeatherDataBase
 import com.example.weather.db.WeatherLocalDataSourceImpl
 import com.example.weather.model.WeatherRepositoryImpl
 import com.example.weather.network.ApiService
+import com.example.weather.network.NetworkConnectionStatusImpl
 import com.example.weather.network.RetrofitHelper
 import com.example.weather.network.WeatherRemoteDataSourceImpl
 import java.util.Locale
@@ -30,7 +31,8 @@ class SettingsFragment : Fragment() {
             WeatherRepositoryImpl(
                 WeatherRemoteDataSourceImpl(RetrofitHelper.getInstance().create(ApiService::class.java)),
                 WeatherLocalDataSourceImpl(WeatherDataBase.getInstance(requireContext()).weatherDao()),
-                SharedPreferenceDataSourceImpl.getInstance(requireContext())
+                SharedPreferenceDataSourceImpl.getInstance(requireContext()),
+                NetworkConnectionStatusImpl.getInstance(requireContext())
             )
         )
     }
@@ -78,8 +80,8 @@ class SettingsFragment : Fragment() {
 
         setupSpinner(binding.spinnerWindSpeedUnit, R.array.wind_speed_units) { selectedUnit ->
             val windSpeedUnit = when (selectedUnit) {
-                "metric" -> "Meter/sec"
-                "imperial" -> "Miles/hour"
+                 "Meter/sec" -> "metric"
+                 "Miles/hour" -> "imperial"
                 else -> "metric" // Default
             }
             if (windSpeedUnit != settingsViewModel.windSpeedUnit.value) {

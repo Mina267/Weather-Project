@@ -36,6 +36,7 @@ import com.example.weather.model.Favourites
 import com.example.weather.model.ShowSnackbar
 import com.example.weather.model.WeatherRepositoryImpl
 import com.example.weather.network.ApiService
+import com.example.weather.network.NetworkConnectionStatusImpl
 import com.example.weather.network.RetrofitHelper
 import com.example.weather.network.WeatherRemoteDataSourceImpl
 import org.osmdroid.events.MapEventsReceiver
@@ -56,7 +57,8 @@ class SearchFragment : Fragment() {
             WeatherRepositoryImpl(
                 WeatherRemoteDataSourceImpl(RetrofitHelper.getInstance().create(ApiService::class.java)),
                 WeatherLocalDataSourceImpl(WeatherDataBase.getInstance(requireContext()).weatherDao()),
-                SharedPreferenceDataSourceImpl.getInstance(requireContext())
+                SharedPreferenceDataSourceImpl.getInstance(requireContext()),
+                NetworkConnectionStatusImpl.getInstance(requireContext())
             )
         )
     }
