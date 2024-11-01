@@ -62,7 +62,7 @@ class FavouriteFragment : Fragment() {
         }
 
         // Floating action button navigation
-        binding.floatingActionButton.setOnClickListener {
+        binding.floatingFavButton.setOnClickListener {
             val navController = findNavController()
             if (navController.currentDestination?.id == R.id.nav_favorite) {
                 navController.navigate(R.id.action_nav_favorite_to_searchFragment)

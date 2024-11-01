@@ -2,6 +2,7 @@ package com.example.weather.ui.home
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -52,12 +53,20 @@ class ListAdapterInfo(private val myListener: (WeatherInfo) -> Unit) :
             is WeatherInfo.UVIndex -> {
                 holder.binding.txtType.text = context.getString(R.string.uv_index)
                 holder.binding.txtData.text = NumberFormat.getInstance(Locale.getDefault()).format(item.value)
-                holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(R.drawable.sunny_24px, 0, 0, 0)
+                if (context.resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL) {
+                    holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.sunny_24px, 0)
+                } else {
+                    holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(R.drawable.sunny_24px, 0, 0, 0)
+                }
             }
             is WeatherInfo.Humidity -> {
                 holder.binding.txtType.text = context.getString(R.string.humidity)
                 holder.binding.txtData.text = "${NumberFormat.getInstance(Locale.getDefault()).format(item.value)}%"
-                holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(R.drawable.humidity_percentage_24px, 0, 0, 0)
+                if (context.resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL) {
+                    holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.humidity_percentage_24px, 0)
+                } else {
+                    holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(R.drawable.humidity_percentage_24px, 0, 0, 0)
+                }
             }
             is WeatherInfo.Wind -> {
                 holder.binding.txtType.text = context.getString(R.string.wind)
@@ -69,22 +78,39 @@ class ListAdapterInfo(private val myListener: (WeatherInfo) -> Unit) :
                     holder.binding.txtData.text = "${NumberFormat.getInstance(Locale.getDefault()).format(item.speed)} ${context.getString(R.string.unit_ms)}"
                 }
 
-                holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(R.drawable.air_24px, 0, 0, 0)
+                if (context.resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL) {
+                    holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.air_24px, 0)
+                } else {
+                    holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(R.drawable.air_24px, 0, 0, 0)
+                }
+
             }
             is WeatherInfo.Pressure -> {
                 holder.binding.txtType.text = context.getString(R.string.pressure)
                 holder.binding.txtData.text = "${NumberFormat.getInstance(Locale.getDefault()).format(item.value)} ${context.getString(R.string.unit_mb)}"
-                holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(R.drawable.compress_24px, 0, 0, 0)
+                if (context.resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL) {
+                    holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.compress_24px, 0)
+                } else {
+                    holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(R.drawable.compress_24px, 0, 0, 0)
+                }
             }
             is WeatherInfo.DewPoint -> {
                 holder.binding.txtType.text = context.getString(R.string.dew_point)
                 holder.binding.txtData.text = "${NumberFormat.getInstance(Locale.getDefault()).format(item.value.toInt())}°"
-                holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(R.drawable.dew_point_24px, 0, 0, 0)
+                if (context.resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL) {
+                    holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.dew_point_24px, 0)
+                } else {
+                    holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(R.drawable.dew_point_24px, 0, 0, 0)
+                }
             }
             is WeatherInfo.Visibility -> {
                 holder.binding.txtType.text = context.getString(R.string.visibility)
                 holder.binding.txtData.text = "${NumberFormat.getInstance(Locale.getDefault()).format(item.value)} ${context.getString(R.string.unit_kmh)}"
-                holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(R.drawable.visibility_24px, 0, 0, 0)
+                if (context.resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL) {
+                    holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.visibility_24px, 0)
+                } else {
+                    holder.binding.txtType.setCompoundDrawablesWithIntrinsicBounds(R.drawable.visibility_24px, 0, 0, 0)
+                }
             }
         }
 

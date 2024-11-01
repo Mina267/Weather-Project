@@ -70,12 +70,25 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
+
+
             if (destination.id == R.id.nav_settings) {
                 binding.appBarMain.toolbar.visibility = View.GONE
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             } else {
                 binding.appBarMain.toolbar.visibility = View.VISIBLE
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            }
+
+
+            // Dynamically update the toolbar title
+            binding.appBarMain.toolbar.title = when (destination.id) {
+                R.id.nav_home -> getString(R.string.menu_home)
+                R.id.nav_favorite -> getString(R.string.menu_fav)
+                R.id.nav_settings -> getString(R.string.menu_setting)
+                R.id.searchFragment -> getString(R.string.menu_search)
+                R.id.alertFragment -> getString(R.string.menu_alert)
+                else -> getString(R.string.app_name) // default label
             }
         }
 
@@ -86,14 +99,21 @@ class MainActivity : AppCompatActivity() {
             changeLocale("ar")
         }
 
+        updateSettingsTitle(navView)
 
         // Setup RecyclerView in Navigation Drawer
         setupNavigationRecyclerView()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
+        //menuInflater.inflate(R.menu.main, menu)
         return true
+    }
+
+    private fun updateSettingsTitle(navView: NavigationView) {
+        val menu = navView.menu
+        val settingsMenuItem = menu.findItem(R.id.nav_settings)
+        settingsMenuItem.title = getString(R.string.menu_setting) // Update with localized title
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -110,6 +130,7 @@ class MainActivity : AppCompatActivity() {
 
         config.setLocale(locale)
         this.resources.updateConfiguration(config, this.resources.displayMetrics)
+        //this.recreate()
 
     }
 
@@ -122,6 +143,8 @@ class MainActivity : AppCompatActivity() {
         val txtMyCurrentLocation = headerView.findViewById<TextView>(R.id.txtMyCurrentLocation)
         val txtManageLocations = headerView.findViewById<TextView>(R.id.txtManageLocations)
 
+        txtManageLocations.text = getString(R.string.managelocations)
+        txtMyCurrentLocation.text = getString(R.string.mycurrentlocation)
 
         // Set up the RecyclerView
         navRecyclerView.apply {

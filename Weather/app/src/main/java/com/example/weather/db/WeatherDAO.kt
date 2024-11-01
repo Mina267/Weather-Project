@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.weather.model.AlertsData
 import com.example.weather.model.Favourites
 import com.example.weather.model.OneCallWeather
 import kotlinx.coroutines.flow.Flow
@@ -31,4 +32,20 @@ interface WeatherDAO {
 
     @Query("DELETE FROM favourites_places WHERE lat = :lat AND lon = :lon")
     suspend fun deleteFavourite(lat: Double, lon: Double)
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAlert(alert: AlertsData)
+
+    @Query("SELECT * FROM alerts_table")
+    fun getAllAlerts(): Flow<List<AlertsData>>
+
+    @Query("SELECT * FROM alerts_table WHERE time = :time LIMIT 1")
+    suspend fun getAlertByTime(time: Long): AlertsData?
+
+    @Query("DELETE FROM alerts_table WHERE time = :time")
+    suspend fun deleteAlert(time: Long)
+
+    @Query("DELETE FROM alerts_table")
+    suspend fun deleteAllAlerts()
 }

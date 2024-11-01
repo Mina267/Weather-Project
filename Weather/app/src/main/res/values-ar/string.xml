@@ -8,7 +8,7 @@
     <string name="action_settings">الإعدادات</string>
     <string name="weather_icon">أيقونة الطقس</string>
     <string name="feels_like">يشعر وكأنه</string>
-    <string name="uv_index">مؤشر الأشعة فوق البنفسجية</string>
+    <string name="uv_index">الأشعة فوق البنفسجية</string>
     <string name="humidity">الرطوبة</string>
     <string name="wind">الرياح</string>
     <string name="pressure">الضغط</string>
@@ -33,4 +33,52 @@
     <string name="language">اللغة</string>
     <string name="temperature_unit">وحدة درجة الحرارة</string>
     <string name="wind_speed_unit">وحدة سرعة الرياح</string>
+    <string name="addalert">إضافة تنبيه</string>
+    <string name="select_date">اختر التاريخ</string>
+    <string name="select_time">اختر الوقت</string>
+    <string name="save">حفظ</string>
+    <string name="alert_title">تعيين تنبيه</string>
+    <string name="please_select">يرجى اختيار التاريخ والوقت</string>
+    <string name="delete_alert">حذف التنبيه</string>
+    <string name="delete_alert_message">سيؤدي حذف هذا التنبيه إلى إيقاف جميع إشعارات الطقس لهذه الظروف. لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="cancel">إلغاء</string>
+    <string name="delete">حذف</string>
+    <string name="menu_alert">تنبيه</string>
+    <string name="menu_search">بحث</string>
+    <string name="language_english">الإنجليزية</string>
+    <string name="language_arabic">العربية</string>
+    <string name="unit_celsius">درجة مئوية</string>
+    <string name="unit_fahrenheit">فهرنهايت</string>
+    <string name="unit_kelvin">كلفن</string>
+    <string name="unit_meter_per_sec">متر/ثانية</string>
+    <string name="unit_miles_per_hour">ميل/ساعة</string>
+    <string name="language_set_to">تم تعيين اللغة إلى %1$s</string>
+    <string name="temperature_unit_set_to">تم تعيين وحدة الحرارة إلى %1$s</string>
+    <string name="wind_speed_unit_set_to">تم تعيين وحدة سرعة الرياح إلى %1$s</string>
+
+
+    <!-- Temperature units options -->
+    <string-array name="temperature_units">
+        <item>كلفن</item>
+        <item>درجة مئوية</item>
+        <item>فهرنهايت</item>
+    </string-array>
+
+    <!-- Wind speed units options -->
+    <string-array name="wind_speed_units">
+        <item>متر/ثانية</item>
+        <item>ميل/ساعة</item>
+    </string-array>
+
+    <!-- Language options -->
+    <string-array name="language_options">
+        <item>الإنجليزية</item>
+        <item>العربية</item>
+    </string-array>
+
+    <string-array name="temp_units">
+        <item>كلفن</item>
+        <item>درجة مئوية</item>
+        <item>فهرنهايت</item>
+    </string-array>
 </resources>

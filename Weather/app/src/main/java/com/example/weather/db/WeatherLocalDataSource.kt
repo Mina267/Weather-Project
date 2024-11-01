@@ -1,5 +1,6 @@
 package com.example.weather.db
 
+import com.example.weather.model.AlertsData
 import com.example.weather.model.Favourites
 import com.example.weather.model.OneCallWeather
 import kotlinx.coroutines.flow.Flow
@@ -13,4 +14,9 @@ interface WeatherLocalDataSource {
     suspend fun deleteFavourite(lat: Double, lon: Double)
 
 
+    suspend fun insertAlert(alert: AlertsData)
+    fun getAllAlerts(): Flow<List<AlertsData>>
+    suspend fun getAlertByTime(time: Long): AlertsData?
+    suspend fun deleteAlert(time: Long)
+    suspend fun deleteAllAlerts()
 }

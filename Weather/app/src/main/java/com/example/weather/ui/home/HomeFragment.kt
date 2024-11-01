@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.weather.network.NetworkConnectionStatusImpl
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -81,7 +82,10 @@ class HomeFragment : Fragment() {
         }
 
 
+        binding.floatingNotificationButton.setOnClickListener{
+            findNavController().navigate(R.id.action_nav_home_to_alertFragment) // Use SafeArgs if possible
 
+        }
 
         listAdapterInfo = ListAdapterInfo { currentData ->
 
@@ -167,7 +171,16 @@ class HomeFragment : Fragment() {
                 NumberFormat.getInstance(Locale.getDefault()).format(currentTemp)}°"
             binding.txtCurrentFeelsLike.text = "${NumberFormat.getInstance(Locale.getDefault()).format(maxTemp)}° / ${NumberFormat.getInstance(Locale.getDefault()).format(minTemp)}° ${getString(R.string.feels_like)}: ${NumberFormat.getInstance(Locale.getDefault()).format(feelsLikeTemp)}°"
             binding.txtCurrentWeatherDisc.text = currentWeather.weather.firstOrNull()?.description
-            binding.txtHourlyDesc.text = weather.daily[0].summary + ". ${context?.getString(R.string.Low)}" +" ${NumberFormat.getInstance(Locale.getDefault()).format(minTemp)}°C."
+
+            if (weatherViewModel.getLanguage() == "ar")
+            {
+                binding.txtHourlyDesc.text = currentWeather.weather.firstOrNull()?.description + ".   ${context?.getString(R.string.Low)}" +" ${NumberFormat.getInstance(Locale.getDefault()).format(minTemp)}°."
+
+            } else {
+                binding.txtHourlyDesc.text = weather.daily[0].summary + ". ${context?.getString(R.string.Low)}" +" ${NumberFormat.getInstance(Locale.getDefault()).format(minTemp)}°C."
+
+            }
+
             hourlyAdapter.submitList(weather.hourly.drop(1).take(24))
             dailyAdapter.submitList(weather.daily.drop(1))
 
@@ -180,6 +193,10 @@ class HomeFragment : Fragment() {
             val timeFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
             val sunriseFormatted = timeFormat.format(Date(sunriseInMillis))
             val sunsetFormatted = timeFormat.format(Date(sunsetInMillis))
+
+            binding.txtSunrise.text = getString(R.string.sunrise)
+            binding.txtSunset.text = getString(R.string.sunset)
+
 
             binding.txtSunRiseTime.text = sunriseFormatted
             binding.txtSunSetTime.text = sunsetFormatted

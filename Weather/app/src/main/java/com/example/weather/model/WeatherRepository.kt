@@ -23,4 +23,9 @@ interface WeatherRepository {
 
     fun setActiveNetworkLocation(longitude: Double, latitude: Double)
     fun getActiveNetworkLocation(): Pair<Double, Double>
+    suspend fun insertAlert(alert: AlertsData)
+    fun getAllAlerts(): Flow<List<AlertsData>>
+    suspend fun getAlertByTime(time: Long): AlertsData?
+    suspend fun deleteAlert(time: Long)
+    suspend fun deleteAllAlerts()
 }

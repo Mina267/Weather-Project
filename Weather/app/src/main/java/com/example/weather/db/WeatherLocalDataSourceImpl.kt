@@ -1,6 +1,7 @@
 package com.example.weather.db
 
 import android.content.Context
+import com.example.weather.model.AlertsData
 import com.example.weather.model.Favourites
 import com.example.weather.model.OneCallWeather
 import kotlinx.coroutines.flow.Flow
@@ -47,6 +48,26 @@ class WeatherLocalDataSourceImpl(private val weatherDAO: WeatherDAO): WeatherLoc
 
     override suspend fun deleteFavourite(lat: Double, lon: Double) {
         weatherDAO.deleteFavourite(lat, lon)
+    }
+
+    override suspend fun insertAlert(alert: AlertsData) {
+        weatherDAO.insertAlert(alert)
+    }
+
+    override fun getAllAlerts(): Flow<List<AlertsData>> {
+        return weatherDAO.getAllAlerts()
+    }
+
+    override suspend fun getAlertByTime(time: Long): AlertsData? {
+        return weatherDAO.getAlertByTime(time)
+    }
+
+    override suspend fun deleteAlert(time: Long) {
+        weatherDAO.deleteAlert(time)
+    }
+
+    override suspend fun deleteAllAlerts() {
+        weatherDAO.deleteAllAlerts()
     }
 
 

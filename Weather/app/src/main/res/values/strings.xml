@@ -33,7 +33,55 @@
     <string name="language">Language</string>
     <string name="temperature_unit">Temperature Unit</string>
     <string name="wind_speed_unit">Wind Speed Unit</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="mycurrentlocation"> My Current Location</string>
     <string name="managelocations">Manage Locations</string>
+    <string name="addalert">Add Alert</string>
+
+    <string name="select_date">Select Date</string>
+    <string name="select_time">Select Time</string>
+    <string name="save">Save</string>
+    <string name="alert_title">Set Alert</string>
+    <string name="please_select">Please select date and time</string>
+    <string name="delete_alert">Delete Alert</string>
+    <string name="delete_alert_message">Deleting this alert will stop all weather notifications for these conditions. This action cannot be undone.</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="menu_alert">Alert</string>
+    <string name="menu_search">Search\n</string>
+    <string name="language_english">English</string>
+    <string name="language_arabic">Arabic</string>
+    <string name="unit_celsius">Celsius</string>
+    <string name="unit_fahrenheit">Fahrenheit</string>
+    <string name="unit_kelvin">Kelvin</string>
+    <string name="unit_meter_per_sec">Meter/sec</string>
+    <string name="unit_miles_per_hour">Miles/hour</string>
+    <string name="language_set_to">Language set to %1$s</string>
+    <string name="temperature_unit_set_to">Temperature unit set to %1$s</string>
+    <string name="wind_speed_unit_set_to">Wind speed unit set to %1$s</string>
+
+    <!-- Temperature units options -->
+    <string-array name="temperature_units">
+        <item>Kelvin</item>
+        <item>Celsius</item>
+        <item>Fahrenheit</item>
+    </string-array>
+
+    <!-- Wind speed units options -->
+    <string-array name="wind_speed_units">
+        <item>Meter/sec</item>
+        <item>Miles/hour</item>
+    </string-array>
+
+    <!-- Language options -->
+    <string-array name="language_options">
+        <item>English</item>
+        <item>Arabic</item>
+    </string-array>
+
+    <string-array name="temp_units">
+        <item>Kelvin</item>
+        <item>Celsius</item>
+        <item>Fahrenheit</item>
+    </string-array>
+
 </resources>

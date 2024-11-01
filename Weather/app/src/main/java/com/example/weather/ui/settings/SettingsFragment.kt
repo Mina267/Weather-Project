@@ -53,43 +53,44 @@ class SettingsFragment : Fragment() {
     private fun setupSpinners() {
         setupSpinner(binding.spinnerLanguage, R.array.language_options) { selectedLanguage ->
             val languageCode = when (selectedLanguage) {
-                "English" -> "en"
-                "Arabic" -> "ar"
+                getString(R.string.language_english) -> "en"  // Use localized string
+                getString(R.string.language_arabic) -> "ar"   // Use localized string
                 else -> "en"
             }
             if (languageCode != settingsViewModel.language.value) {
                 settingsViewModel.setLanguage(languageCode)
                 changeLocale(languageCode)
 
-                showToast("Language set to $selectedLanguage")
+                showToast(getString(R.string.language_set_to, selectedLanguage))  // Use localized string
             }
         }
 
         setupSpinner(binding.spinnerTempUnit, R.array.temp_units) { selectedUnit ->
             val tempUnit = when (selectedUnit) {
-                "Celsius" -> "metric"
-                "Fahrenheit" -> "imperial"
-                "Kelvin" -> "standard"
+                getString(R.string.unit_celsius) -> "metric"
+                getString(R.string.unit_fahrenheit) -> "imperial"
+                getString(R.string.unit_kelvin) -> "standard"
                 else -> "metric"
             }
             if (tempUnit != settingsViewModel.unit.value) {
                 settingsViewModel.setUnit(tempUnit)
-                showToast("Temperature unit set to $selectedUnit")
+                showToast(getString(R.string.temperature_unit_set_to, selectedUnit))  // Use localized string
             }
         }
 
         setupSpinner(binding.spinnerWindSpeedUnit, R.array.wind_speed_units) { selectedUnit ->
             val windSpeedUnit = when (selectedUnit) {
-                 "Meter/sec" -> "metric"
-                 "Miles/hour" -> "imperial"
-                else -> "metric" // Default
+                getString(R.string.unit_meter_per_sec) -> "metric"
+                getString(R.string.unit_miles_per_hour) -> "imperial"
+                else -> "metric"
             }
             if (windSpeedUnit != settingsViewModel.windSpeedUnit.value) {
                 settingsViewModel.setWindSpeedUnit(windSpeedUnit)
-                showToast("Wind speed unit set to $selectedUnit")
+                showToast(getString(R.string.wind_speed_unit_set_to, selectedUnit))  // Use localized string
             }
         }
     }
+
 
     private fun setupSpinner(spinner: Spinner, arrayResId: Int, onSelect: (String) -> Unit) {
         val adapter = ArrayAdapter.createFromResource(
@@ -113,30 +114,34 @@ class SettingsFragment : Fragment() {
 
     private fun observeViewModel() {
         settingsViewModel.language.observe(viewLifecycleOwner) { language ->
-            updateSpinnerSelection(binding.spinnerLanguage, when (language) {
-                "en" -> "English"
-                "ar" -> "Arabic"
-                else -> "English"
-            })
+            val languageLabel = when (language) {
+                "en" -> getString(R.string.language_english) // Localized string
+                "ar" -> getString(R.string.language_arabic)  // Localized string
+                else -> getString(R.string.language_english) // Default to English
+            }
+            updateSpinnerSelection(binding.spinnerLanguage, languageLabel)
         }
 
         settingsViewModel.unit.observe(viewLifecycleOwner) { unit ->
-            updateSpinnerSelection(binding.spinnerTempUnit, when (unit) {
-                "metric" -> "Celsius"
-                "imperial" -> "Fahrenheit"
-                "standard" -> "Kelvin"
-                else -> "Celsius"
-            })
+            val tempUnitLabel = when (unit) {
+                "metric" -> getString(R.string.unit_celsius)      // Localized string
+                "imperial" -> getString(R.string.unit_fahrenheit) // Localized string
+                "standard" -> getString(R.string.unit_kelvin)     // Localized string
+                else -> getString(R.string.unit_celsius)          // Default to Celsius
+            }
+            updateSpinnerSelection(binding.spinnerTempUnit, tempUnitLabel)
         }
 
         settingsViewModel.windSpeedUnit.observe(viewLifecycleOwner) { windSpeed ->
-            updateSpinnerSelection(binding.spinnerWindSpeedUnit, when (windSpeed) {
-                "metric" -> "Meter/sec"
-                "imperial" -> "Miles/hour"
-                else -> "Metric"
-            })
+            val windSpeedUnitLabel = when (windSpeed) {
+                "metric" -> getString(R.string.unit_meter_per_sec)   // Localized string
+                "imperial" -> getString(R.string.unit_miles_per_hour) // Localized string
+                else -> getString(R.string.unit_meter_per_sec)        // Default to Meter/sec
+            }
+            updateSpinnerSelection(binding.spinnerWindSpeedUnit, windSpeedUnitLabel)
         }
     }
+
 
     private fun updateSpinnerSelection(spinner: Spinner, value: String) {
         val position = (spinner.adapter as ArrayAdapter<String>).getPosition(value)

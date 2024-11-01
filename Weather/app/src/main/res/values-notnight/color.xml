@@ -26,7 +26,7 @@
     <color name="buttonText">#FFFFFF</color>
     <color name="primaryColor">#527CCA</color>
     <color name="primaryColorDark">#3A5D9F</color>
-    <color name="themes_background">#30000000</color>
+    <color name="themes_background">#30FFFFFF</color>
 
     <color name="accentColor">#FFD700</color>
     <color name="secondaryColor">#708090</color>

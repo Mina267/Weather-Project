@@ -68,12 +68,12 @@ class WeatherRepositoryImpl(
         val currentTime = System.currentTimeMillis()
         val roundedLat = roundToDecimal(latitude, ROUND_VALUE)
         val roundedLon = roundToDecimal(longitude, ROUND_VALUE)
-        val tempUnit = preferences.getTempUnit() ?: "metric" // "metric", "imperial", or "standard"
+        val tempUnit = preferences.getTempUnit() ?: "metric"
         val language = preferences.getLanguage() ?: "en"
-        val windSpeedUnit = preferences.getWindSpeedUnit() ?: "metric" // Desired saving unit: "metric" or "imperial"
+        val windSpeedUnit = preferences.getWindSpeedUnit() ?: "metric"
 
 
-        // Fetch weather data using tempUnit and language parameters
+
         val remoteWeather = remoteDataSource.getOneCallWeather(latitude, longitude, tempUnit, language).first()
         remoteWeather.lastUpdated = currentTime
 
@@ -83,11 +83,8 @@ class WeatherRepositoryImpl(
 
         // Convert wind speed to the preferred unit for saving
         remoteWeather.current.windSpeed = when {
-            // Fetch in m/s but save as miles/hour
             (tempUnit == "metric" || tempUnit == "standard") && windSpeedUnit == "imperial" -> remoteWeather.current.windSpeed * 2.237
-            // Fetch in miles/hour but save as m/s
             tempUnit == "imperial" && windSpeedUnit == "metric" -> remoteWeather.current.windSpeed / 2.237
-            // No conversion needed if fetched and saved units match
             else -> remoteWeather.current.windSpeed
         }
 
@@ -96,14 +93,13 @@ class WeatherRepositoryImpl(
         Log.i("WindSpeed", "convertedWindSpeed: " + "${remoteWeather.current.windSpeed}")
 
 
-        // Insert weather data into local storage with the converted wind speed
         localDataSource.insertWeather(
             remoteWeather.copy(
                 lat = roundedLat,
                 lon = roundedLon,
                 lang = language,
-                wind = windSpeedUnit, // Save in the desired wind speed unit
-                units = tempUnit,     // Save the temperature unit setting as a reference
+                wind = windSpeedUnit,
+                units = tempUnit,
 
             )
         )
@@ -118,10 +114,10 @@ class WeatherRepositoryImpl(
                 networkStatus.isNetworkAvailable.collect { isNetworkAvailable ->
                     if (isNetworkAvailable) {
                         fetchAndCacheRemoteWeather(latitude, longitude)
-                        val newLocalWeather = fetchLocalWeather(latitude, longitude) // Re-fetch from local after caching
+                        val newLocalWeather = fetchLocalWeather(latitude, longitude)
 
                         if (newLocalWeather != null) {
-                            emit(newLocalWeather)  // Emit the cached local data
+                            emit(newLocalWeather)
                         } else {
                             Log.e("WeatherCheck", "Data fetch failed; no data to display.")
                         }
@@ -217,6 +213,26 @@ class WeatherRepositoryImpl(
         val formattedValue = String.format(Locale.ENGLISH, "%.${places}f", value)
         val normalizedValue = convertToEnglishNumber(formattedValue)
         return normalizedValue.toDouble()
+    }
+
+    override suspend fun insertAlert(alert: AlertsData) {
+        localDataSource.insertAlert(alert)
+    }
+
+    override fun getAllAlerts(): Flow<List<AlertsData>> {
+        return localDataSource.getAllAlerts()
+    }
+
+    override suspend fun getAlertByTime(time: Long): AlertsData? {
+        return localDataSource.getAlertByTime(time)
+    }
+
+    override suspend fun deleteAlert(time: Long) {
+        localDataSource.deleteAlert(time)
+    }
+
+    override suspend fun deleteAllAlerts() {
+        localDataSource.deleteAllAlerts()
     }
 }
 

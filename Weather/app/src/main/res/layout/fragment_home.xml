@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -187,7 +187,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/txtSunrise"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sunrise"
@@ -195,7 +195,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/sunArcView" />
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/txtSunset"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sunset"
@@ -211,8 +211,8 @@
                     android:textColor="@color/menuTextColor"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/textView5"
-                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                    app:layout_constraintStart_toStartOf="@+id/txtSunrise"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSunrise" />
 
                 <TextView
                     android:id="@+id/txtSunSetTime"
@@ -223,12 +223,22 @@
                     android:textColor="@color/menuTextColor"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/textView6"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                    app:layout_constraintEnd_toEndOf="@+id/txtSunset"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSunset" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingNotificationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/notifications_24px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
