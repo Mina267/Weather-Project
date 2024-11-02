@@ -47,7 +47,7 @@ class SunArcView @JvmOverloads constructor(
 
     // Scale down the sun image (adjust the size as needed)
     init {
-        val scaleFactor = 0.05f // Adjust this value to resize the sun image
+        val scaleFactor = 0.04f // Adjust this value to resize the sun image
         scaledSunBitmap = Bitmap.createScaledBitmap(
             sunBitmap,
             (sunBitmap.width * scaleFactor).toInt(),

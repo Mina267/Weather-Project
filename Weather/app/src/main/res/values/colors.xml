@@ -8,8 +8,24 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+
+    <!-- Main application theme -->
+    <!-- Main application theme -->
     <!-- Main application theme -->
     <color name="primaryAppColor">#527CCA</color>
+    <!-- Main application theme -->
+    <!-- Main application theme -->
+    <!-- Main application theme -->
+
+
+
+
+
+
+
+
+
+
     <!-- Menu navigation item text color -->
     <color name="menuTextColor">#FFFFFF</color>
     <color name="menuIconColor">#FFFFFF</color>

@@ -179,7 +179,7 @@
 
                 <com.example.weather.SunArcView
                     android:id="@+id/sunArcView"
-                    android:layout_width="250dp"
+                    android:layout_width="275dp"
                     android:layout_height="100dp"
                     android:layout_margin="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
