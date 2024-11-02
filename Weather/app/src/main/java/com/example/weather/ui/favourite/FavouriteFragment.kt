@@ -14,6 +14,7 @@ import com.example.weather.sharedpreference.SharedPreferenceDataSourceImpl
 import com.example.weather.databinding.FragmentFavouriteBinding
 import com.example.weather.db.WeatherDataBase
 import com.example.weather.db.WeatherLocalDataSourceImpl
+import com.example.weather.model.ShowSnackbar
 import com.example.weather.model.WeatherRepositoryImpl
 import com.example.weather.network.ApiService
 import com.example.weather.network.NetworkConnectionStatus
@@ -53,15 +54,24 @@ class FavouriteFragment : Fragment() {
             adapter = ListAdapterFav(
                 myListener = { favourite ->
                     favouriteViewModel.setLocation(favourite.lat, favourite.lon)
-                    findNavController().navigate(R.id.action_nav_favorite_to_nav_home) // Use SafeArgs if possible
+                    findNavController().navigate(R.id.action_nav_favorite_to_nav_home)
                 },
                 removeListener = { favourite ->
                     favouriteViewModel.deleteFavourite(favourite.lat, favourite.lon)
+                    ShowSnackbar.customSnackbar(
+                        context = requireContext(),
+                        view = requireView(),
+                        message = " " + getString(R.string.fav_delete_successfully),
+                        actionText = "Undo",
+                        iconResId = R.drawable.delete_24,
+                        action = { view ->
+                            favouriteViewModel.insertFavourite(favourite)
+                        }
+                    )
                 }
             )
         }
 
-        // Floating action button navigation
         binding.floatingFavButton.setOnClickListener {
             val navController = findNavController()
             if (navController.currentDestination?.id == R.id.nav_favorite) {
@@ -69,16 +79,19 @@ class FavouriteFragment : Fragment() {
             }
         }
 
-        // Observe weatherFavourites from ViewModel
-        lifecycleScope.launch {
+        // Observe weatherFavourites using viewLifecycleOwner
+        viewLifecycleOwner.lifecycleScope.launch {
             favouriteViewModel.weatherFavourites.collect { favourites ->
-                (binding.favRecyclerView.adapter as ListAdapterFav).submitList(favourites)
-                binding.favRecyclerView.visibility = if (favourites.isEmpty()) View.GONE else View.VISIBLE
+                _binding?.let {
+                    (it.favRecyclerView.adapter as ListAdapterFav).submitList(favourites)
+                    it.favRecyclerView.visibility = if (favourites.isEmpty()) View.GONE else View.VISIBLE
+                }
             }
         }
 
         return root
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

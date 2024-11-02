@@ -50,9 +50,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 
 
     // Json Converter
@@ -81,5 +78,29 @@ dependencies {
 
     implementation("com.google.android.gms:play-services-location:21.1.0")
     implementation("org.osmdroid:osmdroid-android:6.1.10")
+
+
+    /**
+     *  Testing dependencies
+     * */
+    // hamcrest
+    testImplementation("org.hamcrest:hamcrest-all:1.3")
+    // Junit
+    testImplementation("junit:junit:4.13.2")
+    // Coroutines test dependencies
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2")
+    // Robolectric
+    testImplementation("org.robolectric:robolectric:4.12")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+
+    testImplementation("androidx.test.ext:junit-ktx:1.1.5")
+    testImplementation("androidx.test:core-ktx:1.5.0")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+
+    // AndroidX Test - Instrumented testing
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2")
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 
 }

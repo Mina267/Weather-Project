@@ -9,6 +9,8 @@ interface WeatherRepository {
     suspend fun getAllFavourites(): Flow<List<Favourites>>
     suspend fun insertFavourite(favourite: Favourites)
     suspend fun deleteFavourite(lat: Double, lon: Double)
+    suspend fun getWeather(): Flow<OneCallWeather>;
+
     fun setPreferredLocationSource(isGps: Boolean)
     fun setPreferredTempUnit(tempUnit: String)
     fun setPreferredWindSpeedUnit(windSpeedUnit: String)
@@ -17,7 +19,6 @@ interface WeatherRepository {
     fun getPreferredTempUnit(): String?
     fun getPreferredWindSpeedUnit(): String?
     fun getPreferredLanguage(): String?
-    suspend fun getWeather(): Flow<OneCallWeather>;
     fun getActiveLocation(): Pair<Double, Double>
     fun setActiveLocation(longitude: Double, latitude: Double)
 

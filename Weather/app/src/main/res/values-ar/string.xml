@@ -55,7 +55,13 @@
     <string name="language_set_to">تم تعيين اللغة إلى %1$s</string>
     <string name="temperature_unit_set_to">تم تعيين وحدة الحرارة إلى %1$s</string>
     <string name="wind_speed_unit_set_to">تم تعيين وحدة سرعة الرياح إلى %1$s</string>
-
+    <string name="time_error">الوقت المحدد في الماضي</string>
+    <string name="alert_set_successfully">تم تعيين التنبيه بنجاح</string>
+    <string name="fav_delete_successfully">تم حذف المفضل</string>
+    <string name="location_set">تم تعيين الموقع كمفضل</string>
+    <string name="location_source_set_to">تم تعيين مصدر الموقع إلى %1$s</string>
+    <string name="map">الخريطة</string>
+    <string name="location_added">تم إضافته</string>
 
     <!-- Temperature units options -->
     <string-array name="temperature_units">

@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -31,6 +30,7 @@ import java.util.Date
 import java.util.Locale
 
 import com.example.weather.model.AlertsData
+import com.example.weather.model.ShowSnackbar
 import com.example.weather.model.WeatherRepositoryImpl
 import com.example.weather.network.ApiService
 import com.example.weather.network.NetworkConnectionStatusImpl
@@ -138,7 +138,16 @@ class AlertFragment : Fragment() {
             if (dialogBinding.selectDateBtn.text == getString(R.string.select_date) ||
                 dialogBinding.selectTimeBtn.text == getString(R.string.select_time)
             ) {
-                Toast.makeText(requireContext(), getString(R.string.please_select), Toast.LENGTH_SHORT).show()
+                ShowSnackbar.customSnackbar(
+                    context = requireContext(),
+                    view = requireView(),
+                    message = getString(R.string.please_select),
+                    actionText = "",
+                    iconResId = R.drawable.dangerous_24px,
+                    action = { view ->
+
+                    }
+                )
                 return@setOnClickListener
             }
 
@@ -161,9 +170,27 @@ class AlertFragment : Fragment() {
                 Log.i("alert", "handleAddingAlert: ")
                 alertViewModel.insertAlert(alertTimeInMillis)
 
-                Toast.makeText(requireContext(), "Alert set successfully", Toast.LENGTH_SHORT).show()
+                ShowSnackbar.customSnackbar(
+                    context = requireContext(),
+                    view = requireView(),
+                    message = getString(R.string.alert_set_successfully),
+                    actionText = "",
+                    iconResId = R.drawable.notifications_24px,
+                    action = { view ->
+
+                    }
+                )
             } else {
-                Toast.makeText(requireContext(), "Selected time is in the past", Toast.LENGTH_SHORT).show()
+                ShowSnackbar.customSnackbar(
+                    context = requireContext(),
+                    view = requireView(),
+                    message = getString(R.string.time_error),
+                    actionText = "",
+                    iconResId = R.drawable.timer_off_24px,
+                    action = { view ->
+
+                    }
+                )
             }
 
             dialog.dismiss()

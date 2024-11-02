@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.weather.databinding.FragmentSearchBinding
@@ -97,7 +96,7 @@ class SearchFragment : Fragment() {
         setupAutoCompleteSearch()
 
         binding.saveFavoriteButton.setOnClickListener {
-            ShowSnackbar.customSnackbar(requireContext(), requireView(), "  " + getAddress(lat, long) + "added", "",
+            ShowSnackbar.customSnackbar(requireContext(), requireView(), "  " + getAddress(lat, long)  + " "+  getString(R.string.location_added), "",
                 R.drawable.check_circle_24px,
             ) {}
 
@@ -189,7 +188,16 @@ class SearchFragment : Fragment() {
                     val point = GeoPoint(location.lat, location.lon)
                     setMarker(point)
                     mapView.controller.setCenter(point)
-                    Toast.makeText(requireContext(), "Location set: ${location.displayName}", Toast.LENGTH_SHORT).show()
+                    ShowSnackbar.customSnackbar(
+                        context = requireContext(),
+                        view = requireView(),
+                        message = " " + getString(R.string.location_set),
+                        actionText = "",
+                        iconResId = R.drawable.where_to_vote_24px,
+                        action = { view ->
+
+                        }
+                    )
                 } else {
                     Log.d("SearchFragment", "No locations found for query: $query")
                 }

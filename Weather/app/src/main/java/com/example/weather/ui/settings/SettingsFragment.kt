@@ -15,6 +15,7 @@ import com.example.weather.sharedpreference.SharedPreferenceDataSourceImpl
 import com.example.weather.databinding.FragmentSettingsBinding
 import com.example.weather.db.WeatherDataBase
 import com.example.weather.db.WeatherLocalDataSourceImpl
+import com.example.weather.model.ShowSnackbar
 import com.example.weather.model.WeatherRepositoryImpl
 import com.example.weather.network.ApiService
 import com.example.weather.network.NetworkConnectionStatusImpl
@@ -49,7 +50,9 @@ class SettingsFragment : Fragment() {
 
         return binding.root
     }
-
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
     private fun setupSpinners() {
         setupSpinner(binding.spinnerLanguage, R.array.language_options) { selectedLanguage ->
             val languageCode = when (selectedLanguage) {
@@ -58,12 +61,27 @@ class SettingsFragment : Fragment() {
                 else -> "en"
             }
             if (languageCode != settingsViewModel.language.value) {
+                showToast(getString(R.string.language_set_to, selectedLanguage))  // Use localized string
+
+                ShowSnackbar.customSnackbar(
+                    context = requireContext(),
+                    view = requireView(),
+                    message = " " + getString(R.string.language_set_to, selectedLanguage),
+                    actionText = "",
+                    iconResId = R.drawable.settings_24p,
+                    action = { view ->
+
+                    }
+                )
                 settingsViewModel.setLanguage(languageCode)
                 changeLocale(languageCode)
 
-                showToast(getString(R.string.language_set_to, selectedLanguage))  // Use localized string
+
+
             }
         }
+
+
 
         setupSpinner(binding.spinnerTempUnit, R.array.temp_units) { selectedUnit ->
             val tempUnit = when (selectedUnit) {
@@ -74,7 +92,16 @@ class SettingsFragment : Fragment() {
             }
             if (tempUnit != settingsViewModel.unit.value) {
                 settingsViewModel.setUnit(tempUnit)
-                showToast(getString(R.string.temperature_unit_set_to, selectedUnit))  // Use localized string
+                ShowSnackbar.customSnackbar(
+                    context = requireContext(),
+                    view = requireView(),
+                    message = " " + getString(R.string.temperature_unit_set_to, selectedUnit),
+                    actionText = "",
+                    iconResId = R.drawable.settings_24p,
+                    action = { view ->
+
+                    }
+                )
             }
         }
 
@@ -86,7 +113,17 @@ class SettingsFragment : Fragment() {
             }
             if (windSpeedUnit != settingsViewModel.windSpeedUnit.value) {
                 settingsViewModel.setWindSpeedUnit(windSpeedUnit)
-                showToast(getString(R.string.wind_speed_unit_set_to, selectedUnit))  // Use localized string
+
+                ShowSnackbar.customSnackbar(
+                    context = requireContext(),
+                    view = requireView(),
+                    message = " " + getString(R.string.wind_speed_unit_set_to, selectedUnit),
+                    actionText = "",
+                    iconResId = R.drawable.settings_24p,
+                    action = { view ->
+
+                    }
+                )
             }
         }
     }
@@ -155,14 +192,24 @@ class SettingsFragment : Fragment() {
             isChecked = settingsViewModel.locationSource.value ?: false
             setOnCheckedChangeListener { _, isChecked ->
                 settingsViewModel.setLocationSource(isChecked)
-                showToast("Location source set to ${if (isChecked) "GPS" else "Map"}")
+                val locationSource = if (isChecked) getString(R.string.gps) else getString(R.string.map)
+                val message = getString(R.string.location_source_set_to, locationSource)
+
+                ShowSnackbar.customSnackbar(
+                    context = requireContext(),
+                    view = requireView(),
+                    message = " " + message,
+                    actionText = "",
+                    iconResId = R.drawable.settings_24p,
+                    action = { view ->
+
+                    }
+                )
             }
         }
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
+
     private fun changeLocale(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)

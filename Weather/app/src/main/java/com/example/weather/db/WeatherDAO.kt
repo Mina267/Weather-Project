@@ -33,6 +33,8 @@ interface WeatherDAO {
     @Query("DELETE FROM favourites_places WHERE lat = :lat AND lon = :lon")
     suspend fun deleteFavourite(lat: Double, lon: Double)
 
+    @Query("SELECT * FROM favourites_places WHERE lat = :lat AND lon = :lon LIMIT 1")
+    suspend fun getFavourite(lat: Double, lon: Double): Favourites?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAlert(alert: AlertsData)
