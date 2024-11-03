@@ -57,7 +57,7 @@ class ListAdapterFav(
             val geocoder = Geocoder(context, Locale.getDefault())
             val addresses = geocoder.getFromLocation(lat, lon, 1)
             if (!addresses.isNullOrEmpty()) {
-                addresses[0].subAdminArea ?: ""
+                addresses[0].subAdminArea ?: "Location not available"
             } else {
                 "Location not found"
             }

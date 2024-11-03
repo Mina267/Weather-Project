@@ -36,7 +36,7 @@ class NetworkConnectionStatusImpl private constructor(context: Context) : Networ
         return capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ?: false
     }
 
-    override fun registerNetworkCallback() {
+    override fun registerNetworkCallback(listener: NetworkChangeListener) {
         if (networkCallback == null) {
             val networkRequest = NetworkRequest.Builder()
                 .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
@@ -44,10 +44,12 @@ class NetworkConnectionStatusImpl private constructor(context: Context) : Networ
 
             networkCallback = object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: Network) {
+                    listener.onNetworkAvailable()
                     _isNetworkAvailable.value = true
                 }
 
                 override fun onLost(network: Network) {
+                    listener.onNetworkLost()
                     _isNetworkAvailable.value = false
                 }
             }
@@ -61,5 +63,10 @@ class NetworkConnectionStatusImpl private constructor(context: Context) : Networ
             connectivityManager.unregisterNetworkCallback(it)
             networkCallback = null
         }
+    }
+
+    interface NetworkChangeListener {
+        fun onNetworkAvailable()
+        fun onNetworkLost()
     }
 }

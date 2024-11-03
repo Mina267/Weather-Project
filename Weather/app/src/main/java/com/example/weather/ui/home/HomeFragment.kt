@@ -30,6 +30,7 @@ import java.util.Date
 import java.util.Locale
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.weather.model.ApiHomeState
 import com.example.weather.network.NetworkConnectionStatusImpl
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -98,11 +99,36 @@ class HomeFragment : Fragment() {
 
 
         viewLifecycleOwner.lifecycleScope.launch {
-            weatherViewModel.weatherData.collect { weather ->
-                weather?.let { updateUI(it) }
+            weatherViewModel.weatherData.collect { state ->
+                when (state) {
+                    is ApiHomeState.Loading -> {
+                        binding.progressBarHome.visibility = View.VISIBLE
+                        binding.nestedScrollHome.visibility = View.GONE
+                        binding.imgViewNoConnectionHome.visibility = View.GONE
+
+                    }
+                    is ApiHomeState.Success -> {
+                        binding.progressBarHome.visibility = View.GONE
+                        binding.nestedScrollHome.visibility = View.VISIBLE
+                        binding.imgViewNoConnectionHome.visibility = View.GONE
+
+                        updateUI(state.data)
+                    }
+                    is ApiHomeState.Failure -> {
+                        binding.nestedScrollHome.visibility = View.GONE
+                        binding.progressBarHome.visibility = View.GONE
+                        binding.imgViewNoConnectionHome.visibility = View.VISIBLE
+                    }
+
+                    null -> {
+
+                        binding.nestedScrollHome.visibility = View.GONE
+                        binding.progressBarHome.visibility = View.GONE
+                        binding.imgViewNoConnectionHome.visibility = View.VISIBLE
+                    }
+                }
             }
         }
-
 
 
 
@@ -115,7 +141,7 @@ class HomeFragment : Fragment() {
         super.onStart()
         if (locationHandler.checkPermissions()) {
             if (locationHandler.isLocationEnabled()) {
-                if (weatherViewModel.getLocationSource() == true) {
+                if (weatherViewModel.getLocationSource()) {
                     locationHandler.getSingleAccurateLocation { lat, lon ->
                         weatherViewModel.refreshWeather(lat, lon)
                         weatherViewModel.setActiveNetworkLocation(lat, lon)
@@ -240,7 +266,10 @@ class HomeFragment : Fragment() {
     }
 
 
-
+    override fun onDestroy() {
+        weatherViewModel.clear()
+        super.onDestroy()
+    }
 
 
 

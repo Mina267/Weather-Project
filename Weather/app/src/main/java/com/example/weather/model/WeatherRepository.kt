@@ -29,4 +29,5 @@ interface WeatherRepository {
     suspend fun getAlertByTime(time: Long): AlertsData?
     suspend fun deleteAlert(time: Long)
     suspend fun deleteAllAlerts()
+    fun clear()
 }

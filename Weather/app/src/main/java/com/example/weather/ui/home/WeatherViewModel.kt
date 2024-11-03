@@ -5,33 +5,43 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.weather.model.ApiHomeState
 import com.example.weather.model.Current
 import com.example.weather.model.OneCallWeather
 import com.example.weather.model.WeatherRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() {
 
-    private val _weatherData = MutableStateFlow<OneCallWeather?>(null)
-    val weatherData: StateFlow<OneCallWeather?> = _weatherData
+    private val _weatherData = MutableStateFlow<ApiHomeState?>(null)
+    val weatherData: StateFlow<ApiHomeState?> = _weatherData
 
     init {
         getCachedWeather()
     }
     fun refreshWeather(latitude: Double, longitude: Double) {
         viewModelScope.launch {
-            repository.getWeather(latitude, longitude).collect {
-                _weatherData.value = it
+            _weatherData.value = ApiHomeState.Loading
+            repository.getWeather(latitude, longitude).catch {
+                    e -> _weatherData.value = ApiHomeState.Failure(e)
+            }.collect {
+                _weatherData.value = ApiHomeState.Success(it)
             }
+
         }
     }
 
     fun refreshWeather() {
         viewModelScope.launch {
-            repository.getWeather().collect {
-                _weatherData.value = it
+            _weatherData.value = ApiHomeState.Loading
+            repository.getWeather().catch {
+                    e -> _weatherData.value = ApiHomeState.Failure(e)
+            }.collect {
+                _weatherData.value = ApiHomeState.Success(it)
             }
         }
 
@@ -39,8 +49,13 @@ class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() 
 
     fun getCachedWeather() {
         viewModelScope.launch {
-            repository.getCacheLocalWeather().collect {
-                _weatherData.value = it
+            _weatherData.value = ApiHomeState.Loading
+            try {
+                repository.getCacheLocalWeather().collect { weather ->
+                    _weatherData.value = ApiHomeState.Success(weather)
+                }
+            } catch (e: Throwable) {
+                _weatherData.value = ApiHomeState.Failure(e)
             }
         }
     }
@@ -83,6 +98,12 @@ class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() 
         repository.setPreferredTempUnit(tempUnit)
     }
 
+    fun clear() {
+        repository.clear()
+    }
+
+
+
 
 
 
@@ -96,7 +117,7 @@ class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() 
             WeatherInfo.DewPoint(current.dewPoint),
             WeatherInfo.Visibility(current.visibility),
 
-        )
+            )
     }
 }
 

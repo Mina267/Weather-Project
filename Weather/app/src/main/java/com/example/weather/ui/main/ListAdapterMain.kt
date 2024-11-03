@@ -55,7 +55,7 @@ class ListAdapterMain(
             val geocoder = Geocoder(context, Locale.getDefault())
             val addresses = geocoder.getFromLocation(lat, lon, 1)
             if (!addresses.isNullOrEmpty()) {
-                addresses[0].subAdminArea ?: ""
+                addresses[0].subAdminArea ?: "Location not found"
             } else {
                 "Location not found"
             }
@@ -64,6 +64,8 @@ class ListAdapterMain(
             "Location not available"
         }
     }
+
+
 
     class ViewHolder(val binding: CardFavMenuBinding) : RecyclerView.ViewHolder(binding.root)
 }

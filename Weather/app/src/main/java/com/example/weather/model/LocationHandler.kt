@@ -84,12 +84,21 @@ class LocationHandler(private val context: Context, private val fusedLocationPro
                 val address = addresses[0]
                 val currentAddress = StringBuilder("")
                 if (!address.subAdminArea.isNullOrBlank()) currentAddress.append(address.subAdminArea)
-                return currentAddress.toString()
+                if (currentAddress.toString().isEmpty())
+                {
+                    return "Unknown location"
+
+                }
+                else
+                {
+                    return currentAddress.toString()
+
+                }
             }
         } catch (e: IOException) {
             e.printStackTrace()
         }
-        return ""
+        return "Unknown location"
     }
 
     /* Request continuous */
@@ -112,4 +121,7 @@ class LocationHandler(private val context: Context, private val fusedLocationPro
             Looper.getMainLooper()
         )
     }
+
+
+
 }

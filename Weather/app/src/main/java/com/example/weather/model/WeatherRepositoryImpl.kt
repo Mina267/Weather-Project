@@ -4,12 +4,17 @@ import android.util.Log
 import com.example.weather.sharedpreference.SharedPreferenceDataSourceImpl
 import com.example.weather.db.WeatherLocalDataSource
 import com.example.weather.network.NetworkConnectionStatus
+import com.example.weather.network.NetworkConnectionStatusImpl
 import com.example.weather.network.WeatherRemoteDataSource
 import com.example.weather.sharedpreference.SharedPreferenceDataSource
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.Locale
 import kotlin.collections.List
@@ -23,6 +28,40 @@ class WeatherRepositoryImpl(
     private val networkStatus: NetworkConnectionStatus
 
     ) : WeatherRepository {
+
+    // Define a CoroutineScope for network and database operations
+    private val repositoryScope = CoroutineScope(Dispatchers.IO)
+
+    init {
+        networkStatus.registerNetworkCallback(
+            object : NetworkConnectionStatusImpl.NetworkChangeListener {
+                override fun onNetworkAvailable() {
+                    repositoryScope.launch {
+                        if (preferences.isGpsLocation())
+                        {
+                            Log.i("network", "onNetworkAvailable: isGpsLocation")
+                            val (latitude, longitude) = preferences.getActiveNetworkLocation()
+                            getWeather(latitude, longitude)
+                            insertFavourite(Favourites(latitude, longitude))
+                        }
+                        else {
+                            Log.i("network", "onNetworkAvailable: noGPS")
+                            val (latitude, longitude) = preferences.getActiveLocation()
+                            insertFavourite(Favourites(latitude, longitude))
+
+                            getWeather()
+                        }
+
+                    }
+                }
+
+                override fun onNetworkLost() {
+                    Log.i("WeatherCheck", "onNetworkLost")
+                }
+            }
+        )
+    }
+
 
     companion object {
         private const val WEATHER_DATA_EXPIRATION_TIME = 15 * 60 * 1000
@@ -81,7 +120,7 @@ class WeatherRepositoryImpl(
         Log.i("WindSpeed", "tempUnit: " + "${tempUnit}")
         Log.i("WindSpeed", "remoteWeather.current.windSpeed: " + "${remoteWeather.current.windSpeed}")
 
-        // Convert wind speed to the preferred unit for saving
+        /* Convert wind speed to the preferred unit for saving */
         remoteWeather.current.windSpeed = when {
             (tempUnit == "metric" || tempUnit == "standard") && windSpeedUnit == "imperial" -> remoteWeather.current.windSpeed * 2.237
             tempUnit == "imperial" && windSpeedUnit == "metric" -> remoteWeather.current.windSpeed / 2.237
@@ -162,7 +201,7 @@ class WeatherRepositoryImpl(
         if (cachedWeather != null) {
             emit(cachedWeather)
         } else {
-
+            Log.e("WeatherCheck", "No cached data available")
         }
     }
 
@@ -234,5 +273,12 @@ class WeatherRepositoryImpl(
     override suspend fun deleteAllAlerts() {
         localDataSource.deleteAllAlerts()
     }
+
+    override fun clear() {
+        networkStatus.unregisterNetworkCallback()
+        repositoryScope.cancel()
+
+    }
+
 }
 
