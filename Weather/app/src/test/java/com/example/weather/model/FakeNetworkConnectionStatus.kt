@@ -1,6 +1,7 @@
 package com.example.weather.model
 
 import com.example.weather.network.NetworkConnectionStatus
+import com.example.weather.network.NetworkConnectionStatusImpl
 import kotlinx.coroutines.flow.StateFlow
 
 class FakeNetworkConnectionStatus(override val isNetworkAvailable: StateFlow<Boolean>) : NetworkConnectionStatus {
@@ -8,11 +9,13 @@ class FakeNetworkConnectionStatus(override val isNetworkAvailable: StateFlow<Boo
         TODO("Not yet implemented")
     }
 
-    override fun registerNetworkCallback() {
+
+
+    override fun unregisterNetworkCallback() {
         TODO("Not yet implemented")
     }
 
-    override fun unregisterNetworkCallback() {
+    override fun registerNetworkCallback(listener: NetworkConnectionStatusImpl.NetworkChangeListener) {
         TODO("Not yet implemented")
     }
 

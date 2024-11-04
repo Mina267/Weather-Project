@@ -26,16 +26,16 @@ class WeatherDAOTest {
     private lateinit var database: WeatherDataBase
     private lateinit var weatherDao: WeatherDAO
 
-    /**
+    /*
      *  Rule to suspend function calls
-     * */
+     */
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
 
-    /**
+    /*
      * Setup the database
-     * */
+     */
     @Before
     fun setup() {
         database = Room.inMemoryDatabaseBuilder(
@@ -47,33 +47,37 @@ class WeatherDAOTest {
     }
 
 
-    /**
+    /*
      *  Close the database
-     * */
+     */
     @After
     fun closeDb() = database.close()
 
     @Test
     fun addFavourite_insertsFavouriteSuccessfully() = runTest {
+        // Given
         val favourite = Favourites(37.7749, -122.4194)
 
+        // When
         weatherDao.insertFavourite(favourite)
-
         val retrievedFavourite = weatherDao.getFavourite(37.7749, -122.4194)
 
+        // Then
         assertThat(retrievedFavourite, IsEqual(favourite))
 
     }
 
     @Test
     fun removeFavourite_deletesFavouriteSuccessfully() = runTest {
+        // Given
         val favourite = Favourites(37.7749, -122.4194)
         weatherDao.insertFavourite(favourite)
 
+        // When
         weatherDao.deleteFavourite(37.7749, -122.4194)
-
         val deletedFavourite = weatherDao.getFavourite(37.7749, -122.4194)
 
+        // Then
         assertThat(deletedFavourite, IsEqual(null))
 
     }

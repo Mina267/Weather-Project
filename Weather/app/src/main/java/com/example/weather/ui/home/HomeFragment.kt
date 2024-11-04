@@ -188,6 +188,7 @@ class HomeFragment : Fragment() {
             Log.d("WeatherUpdate", "UV Index: ${currentWeather.uvi}")
             Log.d("WeatherUpdate", "Wind Speed: ${currentWeather.windSpeed}")
             Log.d("WeatherUpdate", "Description: ${currentWeather.weather.firstOrNull()?.description}")
+            Log.d("WeatherUpdate", "main: ${currentWeather.weather[0].main}")
 
             // Update the UI with rounded values
             binding.txtCurrentDegree.text = "${
@@ -236,7 +237,7 @@ class HomeFragment : Fragment() {
             }
 
             when (currentWeather.weather[0].main) {
-                "Clouds" -> {
+                "Clouds", "Haze", "Fog", "Mist" -> {
 
 
                     binding.lottieViewCond.setAnimation("cloudy.json")
@@ -265,6 +266,11 @@ class HomeFragment : Fragment() {
                 }
                 "Thunderstorm" -> {
                     binding.lottieViewCond.setAnimation("thunderstorm.json")
+                    binding.lottieViewCond.playAnimation()
+                }
+
+                "Dust", "Sand", "Ash", "Squall", "Tornado" -> {
+                    binding.lottieViewCond.setAnimation("wind.json")
                     binding.lottieViewCond.playAnimation()
                 }
 

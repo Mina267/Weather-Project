@@ -28,9 +28,9 @@ class FavouriteViewModelTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    /**
+    /*
      *  setUp function
-     * */
+     */
     @Before
     fun setUp() {
         repo = FakeWeatherRepository()
@@ -39,39 +39,54 @@ class FavouriteViewModelTest {
 
     @Test
     fun setPreferredLocationSource_UpdatePreferredLocationSourceAndCheck ()  {
+        // Given
         favViewModel.setLocationSource(true)
+        // When
         val isGps = favViewModel.getPreferredLocationSource()
+        // Then
         assertThat(isGps, `is`(true))
     }
 
     @Test
     fun setPreferredTempUnit_UpdatePreferredTempUnitAndCheck()  {
+        // Given
         favViewModel.setPreferredTempUnit("Celsius")
+        // When
         val tempUnit = favViewModel.getPreferredTempUnit()
+        // Then
         assertThat(tempUnit, `is`("Celsius"))
 
     }
 
     @Test
     fun setPreferredWindSpeedUnit_UpdateWindSpeedUnitAndCheck() {
+        // Given
         favViewModel.setPreferredWindSpeedUnit("km/h")
+        // When
         val windSpeedUnit = favViewModel.getPreferredWindSpeedUnit()
+        // Then
         assertThat(windSpeedUnit, `is`("km/h"))
 
     }
 
     @Test
     fun setPreferredLanguage_UpdatePreferredLanguageAndCheck()  {
+        // Given
         favViewModel.setPreferredLanguage("English")
+        // When
         val language = favViewModel.getPreferredLanguage()
+        // Then
         assertThat(language, `is`("English"))
 
     }
 
     @Test
     fun setActiveLocation_UpdatePreferredActiveLocationAndCheck() = runTest  {
+        // Given
         favViewModel.setActiveLocation(1.0, 2.0)
+        // When
         val activeLocation = favViewModel.getActiveLocation()
+        // Then
         assertThat(activeLocation, `is`(Pair(1.0, 2.0)))
 
 
@@ -80,9 +95,12 @@ class FavouriteViewModelTest {
 
     @Test
     fun insertFavourite_UpdateFavouriteAndCheckList() = runTest  {
+        // Given
         val favourite = Favourites(1.0, 2.0)
+        // When
         favViewModel.insertFavourite(favourite)
         val favouritesList = favViewModel.weatherFavourites.first()
+        // Then
         assertThat(favouritesList.contains(favourite), `is`(true))
 
 

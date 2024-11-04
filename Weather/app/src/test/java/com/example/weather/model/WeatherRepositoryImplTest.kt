@@ -41,9 +41,14 @@ class WeatherRepositoryImplTest {
 
     @Test
     fun insertFavourite_checkFavourite() = runTest {
+        // Given
         val favourites = Favourites(1.0, 2.0)
+
+        // When
         weatherRepo.insertFavourite(favourites)
         val favouritesList = weatherRepo.getAllFavourites().first()
+
+        // Then
         assertThat(favouritesList.contains(favourites), `is`(true))
 
 
@@ -51,10 +56,14 @@ class WeatherRepositoryImplTest {
 
     @Test
     fun insertAlert_checkAlert() = runTest {
+        // Given
         val alert = AlertsData(1, 1.0, 2.0)
+
+        // When
         weatherRepo.insertAlert(alert)
         val alertList = weatherRepo.getAlertByTime(1)
 
+        // Then
         assertThat(alertList, `is`(alert))
 
     }

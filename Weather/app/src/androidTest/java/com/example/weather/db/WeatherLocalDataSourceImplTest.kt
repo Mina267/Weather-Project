@@ -46,34 +46,34 @@ class WeatherLocalDataSourceImplTest {
 
     @Test
     fun insertFavourite_insertsAndRetrievesFavouriteSuccessfully() = runTest {
-        // Arrange
+        // Given
         val favourite = Favourites( 37.7749, -122.4194)
 
-        // Act
+        // When
         localDatasource.insertFavourite(favourite)
         val favouritesList = localDatasource.getAllFavourites().first()
 
-        // Assert
+        // Then
         assertThat(favouritesList.size, greaterThan(0))
         assertThat(favouritesList[0], `is`(favourite))
     }
 
     @Test
     fun insertAlert_insertsAndRetrievesAlertSuccessfully() = runTest {
-        // Arrange
+        // Given
         val alert = AlertsData(
             time = System.currentTimeMillis(),
             latitude = 37.7749,
             longitude = -122.4194
         )
 
-        // Act
-        localDatasource.insertAlert(alert) // Call the insert function
+        // When ; Call the insert function
+        localDatasource.insertAlert(alert)
 
-        // Retrieve the alert
-        val retrievedAlert = localDatasource.getAlertByTime(alert.time) // Assuming you have this method in your DAO
+        // When: Retrieve the alert
+        val retrievedAlert = localDatasource.getAlertByTime(alert.time)
 
-        // Assert
+        // Then
         assertThat(retrievedAlert, `is`(alert))
     }
 

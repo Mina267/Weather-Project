@@ -89,10 +89,10 @@ class FakeWeatherRepository : WeatherRepository {
         TODO()
     }
 
-    override suspend fun getCacheLocalWeather(): Flow<OneCallWeather> {
-        // Stub implementation, update with actual mock data if needed
-        TODO()
+    override suspend fun getCacheLocalWeather(): Flow<Result<OneCallWeather>> {
+        TODO("Not yet implemented")
     }
+
 
     override suspend fun insertAlert(alert: AlertsData) {
         // Stub implementation, update with actual mock data if needed
@@ -117,5 +117,9 @@ class FakeWeatherRepository : WeatherRepository {
     override suspend fun deleteAllAlerts() {
         // Stub implementation, update with actual mock data if needed
         TODO()
+    }
+
+    override fun clear() {
+        TODO("Not yet implemented")
     }
 }
