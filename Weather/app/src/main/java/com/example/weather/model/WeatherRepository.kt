@@ -5,7 +5,7 @@ import kotlin.collections.List
 
 interface WeatherRepository {
     suspend fun getWeather(latitude: Double, longitude: Double): Flow<OneCallWeather>
-    suspend fun getCacheLocalWeather(): Flow<OneCallWeather>
+    suspend fun getCacheLocalWeather(): Flow<Result<OneCallWeather>>
     suspend fun getAllFavourites(): Flow<List<Favourites>>
     suspend fun insertFavourite(favourite: Favourites)
     suspend fun deleteFavourite(lat: Double, lon: Double)

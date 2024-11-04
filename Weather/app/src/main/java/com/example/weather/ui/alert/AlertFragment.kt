@@ -83,13 +83,19 @@ class AlertFragment : Fragment() {
         }
 
 
-        // Observe weatherFavourites from ViewModel
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             alertViewModel.weatherAlerts.collect { alerts ->
                 (binding.recyclerViewAlert.adapter as ListAdapterAlert).submitList(alerts)
-                binding.recyclerViewAlert.visibility = if (alerts.isEmpty()) View.GONE else View.VISIBLE
+                if (alerts.isEmpty()) {
+                    binding.imgViewNoAlerts.visibility = View.VISIBLE
+                    binding.recyclerViewAlert.visibility = View.GONE
+                } else {
+                    binding.imgViewNoAlerts.visibility = View.GONE
+                    binding.recyclerViewAlert.visibility = View.VISIBLE
+                }
             }
         }
+
 
         return root
     }

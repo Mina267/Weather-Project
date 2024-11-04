@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateSettingsTitle(navView: NavigationView) {
         val menu = navView.menu
         val settingsMenuItem = menu.findItem(R.id.nav_settings)
-        settingsMenuItem.title = getString(R.string.menu_setting) // Update with localized title
+        settingsMenuItem.title = getString(R.string.menu_setting)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -136,7 +136,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setupNavigationRecyclerView() {
-        // Access the header view and retrieve navRecyclerView once
+
         val headerView = binding.navView.getHeaderView(0)
         val navRecyclerView = headerView.findViewById<RecyclerView>(R.id.navRecyclerView)
         val imgSearch = headerView.findViewById<ImageView>(R.id.imgSearch)
@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
         txtManageLocations.text = getString(R.string.managelocations)
         txtMyCurrentLocation.text = getString(R.string.mycurrentlocation)
 
-        // Set up the RecyclerView
+
         navRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = ListAdapterMain(
@@ -162,10 +162,10 @@ class MainActivity : AppCompatActivity() {
                     )
 
                     mainViewModel.setLocationSource(false)
-                    // Introduce a slight delay before closing the drawer
+
                     navRecyclerView.postDelayed({
                         binding.drawerLayout.closeDrawer(GravityCompat.START)
-                    }, 200)  // Adjust delay if needed
+                    }, 200)
                 },
                 removeListener = { favourite ->
                     mainViewModel.deleteFavourite(favourite.lat, favourite.lon)
@@ -182,7 +182,7 @@ class MainActivity : AppCompatActivity() {
             }, 100)
         }
 
-        // Observe favorite locations with launchWhenResumed for smoother performance
+
         lifecycleScope.launchWhenResumed {
             mainViewModel.weatherFavourites.collect { favourites ->
                 (navRecyclerView.adapter as ListAdapterMain).submitList(favourites)
@@ -196,7 +196,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        // Set imgSearch click listener to navigate to searchFragment
+
         imgSearch.setOnClickListener {
             findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.searchFragment)
             binding.drawerLayout.closeDrawer(GravityCompat.START)

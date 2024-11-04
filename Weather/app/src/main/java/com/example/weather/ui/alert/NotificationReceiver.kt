@@ -12,7 +12,6 @@ import com.example.weather.R
 import com.example.weather.db.WeatherDataBase
 import com.example.weather.db.WeatherLocalDataSourceImpl
 import com.example.weather.model.AlertsData
-import com.example.weather.model.WeatherRepository
 import com.example.weather.model.WeatherRepositoryImpl
 import com.example.weather.network.ApiService
 import com.example.weather.network.NetworkConnectionStatusImpl
@@ -23,16 +22,18 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class NotificationReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
+        // Check and set preferred language locale
+        val localizedContext = applyPreferredLanguage(context)
 
         val alertData = intent.getSerializableExtra(ALERT_REQUEST_KEY) as? AlertsData
-        Log.i("alert", "onReceive: " + alertData.toString())
-        //sendNotification(context, "notificationMessage")
+        Log.i("alert", "onReceive: $alertData")
 
-        context?.let { myContext ->
+        localizedContext?.let { myContext ->
             val repository = WeatherRepositoryImpl(
                 WeatherRemoteDataSourceImpl(RetrofitHelper.getInstance().create(ApiService::class.java)),
                 WeatherLocalDataSourceImpl(WeatherDataBase.getInstance(myContext).weatherDao()),
@@ -44,11 +45,11 @@ class NotificationReceiver : BroadcastReceiver() {
                 alertData?.let {
                     repository.deleteAlert(it.time)
                     repository.getWeather(it.latitude, it.longitude).collectLatest { weather ->
-                        // Format the weather state for notification
-                        val weatherState = weather.current.weather.firstOrNull()?.description ?: "No weather data"
-                        val temperature = weather.current.temp
-                        val notificationMessage = "Current weather: $weatherState, Temp: $temperature°C"
-                        sendNotification(context, notificationMessage)
+                        val weatherState = weather.current.weather.firstOrNull()?.description
+                            ?: myContext.getString(R.string.no_weather_data)
+                        val temperature = weather.current.temp.toInt()
+                        val notificationMessage = myContext.getString(R.string.notification_message, weatherState, temperature)
+                        sendNotification(myContext, notificationMessage)
                     }
                 }
             }
@@ -60,12 +61,12 @@ class NotificationReceiver : BroadcastReceiver() {
         val channelId = "weather_alert_channel"
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId, "Weather Alert", NotificationManager.IMPORTANCE_HIGH)
+            val channel = NotificationChannel(channelId, context.getString(R.string.weather_alert), NotificationManager.IMPORTANCE_HIGH)
             notificationManager.createNotificationChannel(channel)
         }
 
         val notification = NotificationCompat.Builder(context, channelId)
-            .setContentTitle("Weather Alert")
+            .setContentTitle(context.getString(R.string.weather_alert))
             .setContentText(message)
             .setSmallIcon(R.drawable.notifications_24px)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -73,5 +74,27 @@ class NotificationReceiver : BroadcastReceiver() {
 
         notificationManager.notify(2, notification)
     }
-}
 
+    private fun applyPreferredLanguage(context: Context): Context {
+        val preferredLanguage = SharedPreferenceDataSourceImpl.getInstance(context).getLanguage()
+        return if (preferredLanguage == "ar") {
+            changeLocale(context, "ar")
+        } else {
+            context
+        }
+    }
+
+    private fun changeLocale(context: Context, language: String): Context {
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val resources = context.resources
+        val config = resources.configuration
+        config.setLocale(locale)
+        config.setLayoutDirection(locale)
+        return context.createConfigurationContext(config)
+    }
+
+    companion object {
+        const val ALERT_REQUEST_KEY = "alert_request_key"
+    }
+}

@@ -79,15 +79,22 @@ class FavouriteFragment : Fragment() {
             }
         }
 
-        // Observe weatherFavourites using viewLifecycleOwner
         viewLifecycleOwner.lifecycleScope.launch {
             favouriteViewModel.weatherFavourites.collect { favourites ->
-                _binding?.let {
-                    (it.favRecyclerView.adapter as ListAdapterFav).submitList(favourites)
-                    it.favRecyclerView.visibility = if (favourites.isEmpty()) View.GONE else View.VISIBLE
+                _binding?.let { binding ->
+                    (binding.favRecyclerView.adapter as ListAdapterFav).submitList(favourites)
+
+                    if (favourites.isEmpty()) {
+                        binding.imgViewNoFav.visibility = View.VISIBLE
+                        binding.favRecyclerView.visibility = View.GONE
+                    } else {
+                        binding.imgViewNoFav.visibility = View.GONE
+                        binding.favRecyclerView.visibility = View.VISIBLE
+                    }
                 }
             }
         }
+
 
         return root
     }

@@ -1,5 +1,6 @@
 package com.example.weather.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,21 +8,55 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.weather.model.ApiHomeState
 import com.example.weather.model.Current
+import com.example.weather.model.Favourites
 import com.example.weather.model.OneCallWeather
 import com.example.weather.model.WeatherRepository
+import com.example.weather.network.NetworkConnectionStatus
+import com.example.weather.network.NetworkConnectionStatusImpl
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() {
+class WeatherViewModel(private val repository: WeatherRepository,  private val networkStatus: NetworkConnectionStatus) : ViewModel() {
 
-    private val _weatherData = MutableStateFlow<ApiHomeState?>(null)
-    val weatherData: StateFlow<ApiHomeState?> = _weatherData
+    private val _weatherData = MutableStateFlow<ApiHomeState>(ApiHomeState.Loading)
+    val weatherData: StateFlow<ApiHomeState> = _weatherData
+    private val weatherViewModelScope = CoroutineScope(Dispatchers.IO)
 
     init {
         getCachedWeather()
+        Log.i("network", "init weather: ")
+        networkStatus.registerNetworkCallback(
+            object : NetworkConnectionStatusImpl.NetworkChangeListener {
+                override fun onNetworkAvailable() {
+                    weatherViewModelScope.launch {
+                        if (repository.getPreferredLocationSource())
+                        {
+                            Log.i("network", "onNetworkAvailable: isGpsLocation")
+                            val (latitude, longitude) = repository.getActiveNetworkLocation()
+                            refreshWeather(latitude, longitude)
+                        }
+                        else {
+                            Log.i("network", "onNetworkAvailable: noGPS")
+                            val (latitude, longitude) = repository.getActiveLocation()
+
+                            refreshWeather()
+                        }
+
+                    }
+                }
+
+                override fun onNetworkLost() {
+                    Log.i("WeatherCheck", "onNetworkLost")
+                }
+            }
+        )
+
     }
     fun refreshWeather(latitude: Double, longitude: Double) {
         viewModelScope.launch {
@@ -51,14 +86,19 @@ class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() 
         viewModelScope.launch {
             _weatherData.value = ApiHomeState.Loading
             try {
-                repository.getCacheLocalWeather().collect { weather ->
-                    _weatherData.value = ApiHomeState.Success(weather)
+                repository.getCacheLocalWeather().collect { weatherResult ->
+                    if (weatherResult.isSuccess && weatherResult.getOrNull() != null) {
+                        _weatherData.value = ApiHomeState.Success(weatherResult.getOrNull()!!)
+                    } else {
+                        _weatherData.value = ApiHomeState.Failure(Exception("No cached data available"))
+                    }
                 }
             } catch (e: Throwable) {
                 _weatherData.value = ApiHomeState.Failure(e)
             }
         }
     }
+
 
 
     fun getLanguage(): String? {
@@ -99,7 +139,9 @@ class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() 
     }
 
     fun clear() {
-        repository.clear()
+        //repository.clear()
+        networkStatus.unregisterNetworkCallback()
+        weatherViewModelScope.cancel()
     }
 
 
@@ -123,12 +165,13 @@ class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() 
 
 
 class WeatherViewModelFactory(
-    private val repository: WeatherRepository
+    private val repository: WeatherRepository,
+    private val networkStatus: NetworkConnectionStatus
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(WeatherViewModel::class.java)) {
-            return WeatherViewModel(repository) as T
+            return WeatherViewModel(repository, networkStatus) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

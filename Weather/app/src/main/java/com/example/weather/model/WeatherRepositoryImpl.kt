@@ -29,38 +29,6 @@ class WeatherRepositoryImpl(
 
     ) : WeatherRepository {
 
-    // Define a CoroutineScope for network and database operations
-    private val repositoryScope = CoroutineScope(Dispatchers.IO)
-
-    init {
-        networkStatus.registerNetworkCallback(
-            object : NetworkConnectionStatusImpl.NetworkChangeListener {
-                override fun onNetworkAvailable() {
-                    repositoryScope.launch {
-                        if (preferences.isGpsLocation())
-                        {
-                            Log.i("network", "onNetworkAvailable: isGpsLocation")
-                            val (latitude, longitude) = preferences.getActiveNetworkLocation()
-                            getWeather(latitude, longitude)
-                            insertFavourite(Favourites(latitude, longitude))
-                        }
-                        else {
-                            Log.i("network", "onNetworkAvailable: noGPS")
-                            val (latitude, longitude) = preferences.getActiveLocation()
-                            insertFavourite(Favourites(latitude, longitude))
-
-                            getWeather()
-                        }
-
-                    }
-                }
-
-                override fun onNetworkLost() {
-                    Log.i("WeatherCheck", "onNetworkLost")
-                }
-            }
-        )
-    }
 
 
     companion object {
@@ -177,7 +145,7 @@ class WeatherRepositoryImpl(
     }
 
 
-    override suspend fun getCacheLocalWeather(): Flow<OneCallWeather> = flow {
+    override suspend fun getCacheLocalWeather(): Flow<Result<OneCallWeather>> = flow {
         var lat: Double;
         var lon: Double;
         if (getPreferredLocationSource()) {
@@ -199,9 +167,11 @@ class WeatherRepositoryImpl(
         val cachedWeather = fetchLocalWeather(lat, lon, 0)
         Log.i("WeatherCheck", "getCacheLocalWeather: " + "${cachedWeather?.current?.temp}")
         if (cachedWeather != null) {
-            emit(cachedWeather)
+            emit(Result.success(cachedWeather))
+            Log.i("WeatherCheck", "emit(cachedWeather): ")
         } else {
             Log.e("WeatherCheck", "No cached data available")
+            emit(Result.failure(Exception("No cached data available")))
         }
     }
 
@@ -276,7 +246,6 @@ class WeatherRepositoryImpl(
 
     override fun clear() {
         networkStatus.unregisterNetworkCallback()
-        repositoryScope.cancel()
 
     }
 

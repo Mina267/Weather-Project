@@ -36,7 +36,9 @@
     <string name="mycurrentlocation"> My Current Location</string>
     <string name="managelocations">Manage Locations</string>
     <string name="addalert">Add Alert</string>
-
+    <string name="weather_alert">Weather Alert</string>
+    <string name="notification_message">Current weather: %1$s, Temp: %2$d°C</string>
+    <string name="no_weather_data">No weather data</string>
     <string name="select_date">Select Date</string>
     <string name="select_time">Select Time</string>
     <string name="save">Save</string>

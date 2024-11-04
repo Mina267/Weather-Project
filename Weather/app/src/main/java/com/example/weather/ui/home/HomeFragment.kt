@@ -30,6 +30,7 @@ import java.util.Date
 import java.util.Locale
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.weather.model.ApiHomeState
 import com.example.weather.network.NetworkConnectionStatusImpl
 import kotlinx.coroutines.flow.collect
@@ -61,9 +62,10 @@ class HomeFragment : Fragment() {
             NetworkConnectionStatusImpl.getInstance(requireContext())
 
         )
-        val weatherViewModelFactory = WeatherViewModelFactory(repository)
+        val weatherViewModelFactory = WeatherViewModelFactory(repository,
+            NetworkConnectionStatusImpl.getInstance(requireContext()))
         weatherViewModel = ViewModelProvider(this, weatherViewModelFactory).get(WeatherViewModel::class.java)
-
+        Log.i("network", "onCreateView: ")
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         locationHandler = LocationHandler(requireContext(), fusedLocationProviderClient)
 
@@ -120,12 +122,7 @@ class HomeFragment : Fragment() {
                         binding.imgViewNoConnectionHome.visibility = View.VISIBLE
                     }
 
-                    null -> {
 
-                        binding.nestedScrollHome.visibility = View.GONE
-                        binding.progressBarHome.visibility = View.GONE
-                        binding.imgViewNoConnectionHome.visibility = View.VISIBLE
-                    }
                 }
             }
         }
@@ -233,6 +230,52 @@ class HomeFragment : Fragment() {
             val address = locationHandler.getAddress(weather.lat, weather.lon)
             (activity as? AppCompatActivity)?.supportActionBar?.title = address
 
+            binding.lottieViewCond.apply {
+                scaleX = 1.0f // Set the desired scale factor
+                scaleY = 1.0f
+            }
+
+            when (currentWeather.weather[0].main) {
+                "Clouds" -> {
+
+
+                    binding.lottieViewCond.setAnimation("cloudy.json")
+                    binding.lottieViewCond.playAnimation()
+                }
+                "Clear" -> {
+
+                    val currentTime = System.currentTimeMillis() / 1000
+
+                    if (currentTime in weather.current.sunrise until weather.current.sunset) {
+                        binding.lottieViewCond.setAnimation("sunny.json")
+                        binding.lottieViewCond.playAnimation()
+                    } else {
+                        binding.lottieViewCond.setAnimation("night.json")
+                        binding.lottieViewCond.playAnimation()
+                    }
+
+                }
+                "Rain" , "shower rain" , "Drizzle" -> {
+                    binding.lottieViewCond.setAnimation("rain.json")
+                    binding.lottieViewCond.playAnimation()
+                }
+                "Snow" -> {
+                    binding.lottieViewCond.setAnimation("snow.json")
+                    binding.lottieViewCond.playAnimation()
+                }
+                "Thunderstorm" -> {
+                    binding.lottieViewCond.setAnimation("thunderstorm.json")
+                    binding.lottieViewCond.playAnimation()
+                }
+
+                else -> {
+                    binding.lottieViewCond.setAnimation("person.json")
+                    binding.lottieViewCond.playAnimation()
+                }
+            }
+
+
+
 
 
         } else {
@@ -265,9 +308,13 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        weatherViewModel.clear()
+
+    }
 
     override fun onDestroy() {
-        weatherViewModel.clear()
         super.onDestroy()
     }
 
