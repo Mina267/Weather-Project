@@ -129,30 +129,27 @@ Let me know if this aligns with your vision for the README or if there’s anyth
    - **Restore**: Stores weather data in memory and caches accordingly.
    - **Data Access Objects (DAOs)**: Simplifies data retrieval and modification.
    <p align="center">
-      <img src="" style="width: 19%; display: inline-block; vertical-align: middle; margin-right: 2%;" />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="" style="width: 17%; display: inline-block; vertical-align: middle;" />
-   </p>
-
-### 6. **User Preferences: Shared Preferences**
-   - **Settings Management**: Stores user settings such as units, language, and alerts.
-   - **Localization**: Supports Arabic and English, dynamically changing the language.
-   <p align="center">
       <img src="https://github.com/user-attachments/assets/4d6f87e8-ea8f-4065-9afd-2d56d4224519" style="width: 19%; display: inline-block; vertical-align: middle; margin-right: 2%;" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <img src="https://github.com/user-attachments/assets/f0f90d8d-38b5-441c-97b9-7816b1f03ed5" style="width: 17%; display: inline-block; vertical-align: middle;" />
    </p>
 
-### 7. **Background Work: Work Manager & Alarm Manager**
-   - **Regular Weather Updates**: Keeps weather information up-to-date in the background.
-   - **Weather Alerts**: Customizes alerts for user-defined weather conditions through Alarm Manager.
+### 6. **User Preferences: Shared Preferences**
+   - **Settings Management**: Stores user settings such as units, language, and alerts.
+   - **Localization**: Supports Arabic and English, dynamically changing the language.
    <p align="center">
       <img src="https://github.com/user-attachments/assets/7c37bdff-db17-4beb-a27d-86b98e023ab0" style="width: 19%; display: inline-block; vertical-align: middle; margin-right: 2%;" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <img src="https://github.com/user-attachments/assets/3839492a-72ef-4a9a-8e3a-d3a55b1951ce" style="width: 17%; display: inline-block; vertical-align: middle;" />
+   </p>
+
+### 7. **Background Work: Work Manager & Alarm Manager**
+   - **Regular Weather Updates**: Keeps weather information up-to-date in the background.
+   - **Weather Alerts**: Customizes alerts for user-defined weather conditions through Alarm Manager.
+   <p align="center">
+	   <img src="https://github.com/user-attachments/assets/213496d0-8686-4c16-a699-dfaa95b1cd14" width=60% height=60% />
    </p>
 
 ### 8. **Testing: Unit and Instrumentation Tests**
