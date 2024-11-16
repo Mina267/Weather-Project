@@ -27,7 +27,7 @@ A real-time weather forecasting app that provides temperature, humidity, and win
       <img src="https://github.com/user-attachments/assets/4a86cc10-fe8d-4f50-8e50-3e833a60cc76" style="width: 14%; display: inline-block; vertical-align: middle; margin-right: 2%;" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="https://github.com/user-attachments/assets/bf1d8b3e-8096-4a4b-b7ea-1b98a9979626" style="width: 13%; display: inline-block; vertical-align: middle;" />
+      <img src="https://github.com/user-attachments/assets/bf1d8b3e-8096-4a4b-b7ea-1b98a9979626" style="width: 12%; display: inline-block; vertical-align: middle;" />
    </p>
 
 ---
@@ -43,7 +43,7 @@ Let me know if this aligns with your vision for the README or if there’s anyth
       <img src="https://github.com/user-attachments/assets/93cf938e-3a39-4652-b6e4-76c93b8b23f3" style="width: 14%; display: inline-block; vertical-align: middle; margin-right: 2%;" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="https://github.com/user-attachments/assets/c2bf4fc5-0268-4cf4-830e-b10782658b2a" style="width: 13%; display: inline-block; vertical-align: middle;" />
+      <img src="https://github.com/user-attachments/assets/c2bf4fc5-0268-4cf4-830e-b10782658b2a" style="width: 12%; display: inline-block; vertical-align: middle;" />
    </p>
 
 ---
@@ -57,7 +57,7 @@ Let me know if this aligns with your vision for the README or if there’s anyth
       <img src="https://github.com/user-attachments/assets/9447b0c1-d953-4989-98bd-2307eb936f3e" style="width: 14%; display: inline-block; vertical-align: middle; margin-right: 2%;" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="https://github.com/user-attachments/assets/01ed16de-f010-465d-a134-e091f08c8b30" style="width: 13%; display: inline-block; vertical-align: middle;" />
+      <img src="https://github.com/user-attachments/assets/01ed16de-f010-465d-a134-e091f08c8b30" style="width: 12%; display: inline-block; vertical-align: middle;" />
       </p>
 
 ---
@@ -71,7 +71,7 @@ Let me know if this aligns with your vision for the README or if there’s anyth
       <img src="https://github.com/user-attachments/assets/5186d6d5-538b-43fc-9342-d0266153a63e" style="width: 14%; display: inline-block; vertical-align: middle; margin-right: 2%;" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="https://github.com/user-attachments/assets/b2033f00-44ec-4fa3-b4f9-d92f21bc27ef" style="width: 13%; display: inline-block; vertical-align: middle;" />
+      <img src="https://github.com/user-attachments/assets/b2033f00-44ec-4fa3-b4f9-d92f21bc27ef" style="width: 12%; display: inline-block; vertical-align: middle;" />
    </p>
 
 
@@ -87,7 +87,7 @@ Let me know if this aligns with your vision for the README or if there’s anyth
       <img src="https://github.com/user-attachments/assets/099c29c6-8f79-44b9-8f86-bbb92ad1b64e" style="width: 14%; display: inline-block; vertical-align: middle; margin-right: 2%;" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="https://github.com/user-attachments/assets/20b35cb3-2d95-4415-a184-5653f6fce420" style="width: 13%; display: inline-block; vertical-align: middle;" />
+      <img src="https://github.com/user-attachments/assets/20b35cb3-2d95-4415-a184-5653f6fce420" style="width: 12%; display: inline-block; vertical-align: middle;" />
    </p>
 
 ### 2. **Asynchronous Programming: Kotlin Coroutines, Flow, and StateFlow**
@@ -98,7 +98,7 @@ Let me know if this aligns with your vision for the README or if there’s anyth
       <img src="https://github.com/user-attachments/assets/dd53e87d-53c1-4ee6-aa37-95ddeb871ce4" style="width: 14%; display: inline-block; vertical-align: middle; margin-right: 2%;" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="https://github.com/user-attachments/assets/31f5019f-39b1-4a6e-b9a1-df71cf49be81" style="width: 13%; display: inline-block; vertical-align: middle;" />
+      <img src="https://github.com/user-attachments/assets/31f5019f-39b1-4a6e-b9a1-df71cf49be81" style="width: 12%; display: inline-block; vertical-align: middle;" />
    </p>
 
 ### 3. **Networking: Retrofit & OpenWeatherMap API**
@@ -109,7 +109,7 @@ Let me know if this aligns with your vision for the README or if there’s anyth
       <img src="https://github.com/user-attachments/assets/e32c04c6-9130-4ad9-a358-689fbc6bc86a" style="width: 14%; display: inline-block; vertical-align: middle; margin-right: 2%;" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="https://github.com/user-attachments/assets/d2257943-e4e8-4eb0-a51c-417f44f2668d" style="width: 13%; display: inline-block; vertical-align: middle;" />
+      <img src="https://github.com/user-attachments/assets/d2257943-e4e8-4eb0-a51c-417f44f2668d" style="width: 12%; display: inline-block; vertical-align: middle;" />
    </p>
 
 ### 4. **Location Management: Location Manager**
@@ -119,7 +119,7 @@ Let me know if this aligns with your vision for the README or if there’s anyth
       <img src="https://github.com/user-attachments/assets/f5cdaed3-423b-4a95-bee9-cf100e894d40" style="width: 14%; display: inline-block; vertical-align: middle; margin-right: 2%;" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="https://github.com/user-attachments/assets/a7f41863-20e9-46c4-9144-b733ddb0d0b1" style="width: 13%; display: inline-block; vertical-align: middle;" />
+      <img src="https://github.com/user-attachments/assets/a7f41863-20e9-46c4-9144-b733ddb0d0b1" style="width: 12%; display: inline-block; vertical-align: middle;" />
    </p>
 
 ### 5. **Local Storage: Room Database**
@@ -132,7 +132,7 @@ Let me know if this aligns with your vision for the README or if there’s anyth
       <img src="" style="width: 14%; display: inline-block; vertical-align: middle; margin-right: 2%;" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="" style="width: 13%; display: inline-block; vertical-align: middle;" />
+      <img src="" style="width: 12%; display: inline-block; vertical-align: middle;" />
    </p>
 
 ### 6. **User Preferences: Shared Preferences**
@@ -142,7 +142,7 @@ Let me know if this aligns with your vision for the README or if there’s anyth
       <img src="https://github.com/user-attachments/assets/4d6f87e8-ea8f-4065-9afd-2d56d4224519" style="width: 14%; display: inline-block; vertical-align: middle; margin-right: 2%;" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="https://github.com/user-attachments/assets/f0f90d8d-38b5-441c-97b9-7816b1f03ed5" style="width: 13%; display: inline-block; vertical-align: middle;" />
+      <img src="https://github.com/user-attachments/assets/f0f90d8d-38b5-441c-97b9-7816b1f03ed5" style="width: 12%; display: inline-block; vertical-align: middle;" />
    </p>
 
 ### 7. **Background Work: Work Manager & Alarm Manager**
@@ -152,7 +152,7 @@ Let me know if this aligns with your vision for the README or if there’s anyth
       <img src="https://github.com/user-attachments/assets/7c37bdff-db17-4beb-a27d-86b98e023ab0" style="width: 14%; display: inline-block; vertical-align: middle; margin-right: 2%;" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="https://github.com/user-attachments/assets/3839492a-72ef-4a9a-8e3a-d3a55b1951ce" style="width: 13%; display: inline-block; vertical-align: middle;" />
+      <img src="https://github.com/user-attachments/assets/3839492a-72ef-4a9a-8e3a-d3a55b1951ce" style="width: 12%; display: inline-block; vertical-align: middle;" />
    </p>
 
 ### 8. **Testing: Unit and Instrumentation Tests**
